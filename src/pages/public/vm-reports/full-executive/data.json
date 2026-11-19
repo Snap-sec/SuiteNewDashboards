@@ -1,0 +1,309 @@
+{
+    "top5": [
+        {
+            "_id": "650000000000000000000001",
+            "title": "SQL Injection in Login Endpoint",
+            "cvssScore": "9.8",
+            "cvssString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "state": "In Review",
+            "affectedAssets": [],
+            "createdAt": "2025-01-15T08:30:00.000Z"
+        },
+        {
+            "_id": "650000000000000000000017",
+            "title": "Authentication Bypass via API Endpoint",
+            "cvssScore": "9.3",
+            "cvssString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "state": "In Review",
+            "affectedAssets": [],
+            "createdAt": "2025-03-12T15:45:00.000Z"
+        },
+        {
+            "_id": "650000000000000000000029",
+            "title": "Command Injection in System Administration",
+            "cvssScore": "9.0",
+            "cvssString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "state": "In Review",
+            "affectedAssets": [],
+            "createdAt": "2025-04-29T12:20:00.000Z"
+        },
+        {
+            "_id": "650000000000000000000011",
+            "title": "Sensitive Data Exposure - Plaintext Passwords",
+            "cvssScore": "8.9",
+            "cvssString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+            "state": "In Review",
+            "affectedAssets": [],
+            "createdAt": "2025-02-20T09:25:00.000Z"
+        },
+        {
+            "_id": "650000000000000000000008",
+            "title": "XML External Entity (XXE) Injection",
+            "cvssScore": "8.8",
+            "cvssString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "state": "In Progress",
+            "affectedAssets": [],
+            "createdAt": "2025-02-08T15:20:00.000Z"
+        }
+    ],
+    "aggCvss": 4.673333333333335,
+    "totalVulns": 45,
+    "fixedInStaging": 4,
+    "inReview": 19,
+    "notApplicable": 0,
+    "falsePositvie": 0,
+    "inProgress": 7,
+    "unResolved": 5,
+    "resolved": 6,
+    "retest": 0,
+    "duplicate": 4,
+    "none": 1,
+    "low": 12,
+    "medium": 12,
+    "high": 15,
+    "critical": 5,
+    "openVulns": 30,
+    "closedVulns": 11,
+    "noneOpen": 1,
+    "noneClosed": 0,
+    "highOpen": 7,
+    "highClosed": 5,
+    "lowOpen": 11,
+    "lowClosed": 1,
+    "medOpen": 8,
+    "medClosed": 3,
+    "criticalOpen": 3,
+    "criticalClosed": 2,
+    "slaMetrics": {
+        "withinSla": 4,
+        "atRisk": 0,
+        "breached": 26
+    },
+    "assetRiskDistribution": {
+        "Technologie": {
+            "averageRisk": 30,
+            "distribution": {
+                "0-30": 2,
+                "31-70": 0,
+                "71-100": 0
+            }
+        },
+        "ip": {
+            "averageRisk": 25.61,
+            "distribution": {
+                "0-30": 10,
+                "31-70": 21,
+                "71-100": 0
+            }
+        },
+        "subdomain": {
+            "averageRisk": 39.23,
+            "distribution": {
+                "0-30": 0,
+                "31-70": 60,
+                "71-100": 1
+            }
+        },
+        "application": {
+            "averageRisk": 49.45,
+            "distribution": {
+                "0-30": 1,
+                "31-70": 9,
+                "71-100": 1
+            }
+        },
+        "certificate": {
+            "averageRisk": 38,
+            "distribution": {
+                "0-30": 0,
+                "31-70": 17,
+                "71-100": 0
+            }
+        },
+        "api": {
+            "averageRisk": 39,
+            "distribution": {
+                "0-30": 0,
+                "31-70": 23,
+                "71-100": 0
+            }
+        },
+        "employee": {
+            "averageRisk": 18.67,
+            "distribution": {
+                "0-30": 11,
+                "31-70": 7,
+                "71-100": 0
+            }
+        },
+        "domain": {
+            "averageRisk": 30,
+            "distribution": {
+                "0-30": 1,
+                "31-70": 0,
+                "71-100": 0
+            }
+        },
+        "dns": {
+            "averageRisk": 30,
+            "distribution": {
+                "0-30": 3,
+                "31-70": 0,
+                "71-100": 0
+            }
+        },
+        "ip-addresse": {
+            "averageRisk": 30,
+            "distribution": {
+                "0-30": 1,
+                "31-70": 0,
+                "71-100": 0
+            }
+        }
+    },
+    "cweDistribution": [
+        {
+            "cwe": "CWE-CWE-15",
+            "count": 1
+        },
+        {
+            "cwe": "CWE-11",
+            "count": 1
+        }
+    ],
+    "cveDistribution": [],
+    "vulnDistribution12Months": [
+        {
+            "month": "Dec 2024",
+            "open": 0,
+            "closed": 0
+        },
+        {
+            "month": "Jan 2025",
+            "open": 2,
+            "closed": 3
+        },
+        {
+            "month": "Feb 2025",
+            "open": 5,
+            "closed": 3
+        },
+        {
+            "month": "Mar 2025",
+            "open": 3,
+            "closed": 5
+        },
+        {
+            "month": "Apr 2025",
+            "open": 5,
+            "closed": 3
+        },
+        {
+            "month": "May 2025",
+            "open": 1,
+            "closed": 0
+        },
+        {
+            "month": "Jun 2025",
+            "open": 0,
+            "closed": 0
+        },
+        {
+            "month": "Jul 2025",
+            "open": 0,
+            "closed": 0
+        },
+        {
+            "month": "Aug 2025",
+            "open": 0,
+            "closed": 0
+        },
+        {
+            "month": "Sep 2025",
+            "open": 0,
+            "closed": 0
+        },
+        {
+            "month": "Oct 2025",
+            "open": 0,
+            "closed": 0
+        },
+        {
+            "month": "Nov 2025",
+            "open": 14,
+            "closed": 1
+        }
+    ],
+    "assessments" : [
+        {
+        "_id": "a1001",
+        "title": "Web Application Penetration Test - Customer Portal",
+        "createdAt": "2025-01-10T09:15:00.000Z",
+        "criticalVulns": 2,
+        "highVulns": 4,
+        "mediumVulns": 6,
+        "lowVulns": 3,
+        "progress": 85
+        },
+        {
+        "_id": "a1002",
+        "title": "API Security Assessment - Billing API",
+        "createdAt": "2025-02-02T11:40:00.000Z",
+        "criticalVulns": 1,
+        "highVulns": 2,
+        "mediumVulns": 4,
+        "lowVulns": 1,
+        "progress": 62
+        },
+        {
+        "_id": "a1003",
+        "title": "Network Vulnerability Assessment",
+        "createdAt": "2025-03-12T15:20:00.000Z",
+        "criticalVulns": 0,
+        "highVulns": 3,
+        "mediumVulns": 7,
+        "lowVulns": 5,
+        "progress": 40
+        },
+        {
+        "_id": "a1004",
+        "title": "Cloud Security Review - AWS Infrastructure",
+        "createdAt": "2025-03-28T08:50:00.000Z",
+        "criticalVulns": 1,
+        "highVulns": 3,
+        "mediumVulns": 5,
+        "lowVulns": 2,
+        "progress": 92
+        },
+        {
+        "_id": "a1005",
+        "title": "Mobile Application Security Test (Android)",
+        "createdAt": "2025-04-09T13:00:00.000Z",
+        "criticalVulns": 0,
+        "highVulns": 1,
+        "mediumVulns": 3,
+        "lowVulns": 1,
+        "progress": 76
+        }
+    ],
+    "assessmentMetrics": {
+        "total": 32,
+        "completed": 20,
+        "pending": 12,
+        "byType": {
+            "blackBox": 7,
+            "greyBox": 12,
+            "whiteBox": 13
+        },
+        "byState": {
+            "Running": 10,
+            "Pending": 1,
+            "Scheduled": 1,
+            "Completed": 20
+        },
+        "totalCost": "0-100-11200-11200-11100-11100-11100",
+        "averageDuration": 0,
+        "totalVulns": 45,
+        "averageVulnsPerAssessment": 1
+    }
+}

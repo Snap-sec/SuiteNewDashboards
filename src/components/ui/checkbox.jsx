@@ -1,29 +1,56 @@
-import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
-import { cn } from "cn"
-import { CheckIcon } from "lucide-react"
+'use client';
 
-function Checkbox({
-  className,
-  ...props
-}) {
+import * as React from 'react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { cva } from 'class-variance-authority';
+import { Check, Minus } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+// Define the variants for the Checkbox using cva.
+const checkboxVariants = cva(
+  `
+    group peer bg-background shrink-0 rounded-md border border-input ring-offset-background focus-visible:outline-none 
+    focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 
+    aria-invalid:border-destructive/60 aria-invalid:ring-destructive/10 dark:aria-invalid:border-destructive dark:aria-invalid:ring-destructive/20
+    [[data-invalid=true]_&]:border-destructive/60 [[data-invalid=true]_&]:ring-destructive/10  dark:[[data-invalid=true]_&]:border-destructive dark:[[data-invalid=true]_&]:ring-destructive/20
+    `,
+  {
+    variants: {
+      variant: {
+        primary:
+          'data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:text-primary-foreground',
+        mono: 'data-[state=checked]:bg-mono data-[state=checked]:border-mono data-[state=checked]:text-mono-foreground data-[state=indeterminate]:bg-mono data-[state=indeterminate]:border-mono data-[state=indeterminate]:text-mono-foreground',
+      },
+      size: {
+        sm: 'size-4.5 [&_svg]:size-3',
+        md: 'size-5 [&_svg]:size-3.5',
+        lg: 'size-5.5 [&_svg]:size-4',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'md',
+    },
+  },
+);
+
+// Extend the Checkbox props with variant props.
+
+function Checkbox({ className, variant, size, ...props }) {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
-      className={cn(
-        "peer relative flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input transition-colors outline-none group-has-disabled/field:opacity-50 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-input after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:aria-checked:border-primary dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground group-has-[:focus-visible]/field-label:data-checked:border-primary dark:data-checked:bg-primary",
-        className
-      )}
+      className={cn(checkboxVariants({ variant, size }), className)}
       {...props}
     >
       <CheckboxPrimitive.Indicator
-        data-slot="checkbox-indicator"
-        className="grid place-content-center text-current transition-none [&>svg]:size-3.5"
+        className={cn('flex items-center justify-center text-current')}
       >
-        <CheckIcon
-        />
+        <Check className="group-data-[state=indeterminate]:hidden" />
+        <Minus className="hidden group-data-[state=indeterminate]:block" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
-  )
+  );
 }
 
-export { Checkbox }
+export { Checkbox };

@@ -1,0 +1,2 @@
+method,endpoint,host,title,explaination,state,severity
+GET,/api/v1/user,api.host.com,Mass Assignment,explaination is here,acknowledged,critical

@@ -1,0 +1,290 @@
+/* Root editor */
+.milkdown {
+    font-size: 14px;
+    /* base text */
+    line-height: 1.5;
+    font-family: inherit;
+}
+
+.milkdown .ProseMirror h2 {
+    font-size: 28px;
+    line-height: 44px;
+    margin-top: 28px;
+}
+
+/* Paragraphs */
+.milkdown .ProseMirror p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Headings (reduced ~3–4px from Crepe defaults) */
+.milkdown .ProseMirror h1 {
+    font-size: 36px;
+    /* ~22px */
+    line-height: 1.3;
+}
+
+
+.milkdown .ProseMirror h3 {
+    font-size: 24px;
+    /* ~16px */
+    line-height: 1.4;
+}
+
+.milkdown .ProseMirror h4 {
+    font-size: 20px;
+    /* ~15px */
+}
+
+.milkdown .ProseMirror h5 {
+    font-size: 0.95em;
+    /* ~13px */
+}
+
+.milkdown .ProseMirror h6 {
+    font-size: 0.9em;
+    /* ~12.5px */
+}
+
+/* Lists */
+.milkdown .ProseMirror ul,
+.milkdown .ProseMirror ol {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.milkdown .ProseMirror li {
+    font-size: 14px;
+}
+
+/* Blockquotes */
+.milkdown blockquote {
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+/* Inline code */
+.milkdown .ProseMirror code {
+    font-size: 0.85em;
+}
+
+/* Code blocks */
+.milkdown .ProseMirror pre {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.milkdown pre code {
+    font-size: inherit;
+}
+
+/* Tables */
+.milkdown table {
+    font-size: 13.5px;
+}
+
+.milkdown th {
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.milkdown td {
+    font-size: 13.5px;
+}
+
+/* Horizontal rule */
+.milkdown hr {
+    margin: 1.25em 0;
+}
+
+/* Images */
+.milkdown img {
+    max-width: 100%;
+}
+
+/* Links */
+.milkdown a {
+    font-size: inherit;
+}
+
+/* Strong / emphasis */
+.milkdown strong {
+    font-size: inherit;
+}
+
+.milkdown em {
+    font-size: inherit;
+}
+
+/* Task lists */
+.milkdown input[type='checkbox'] {
+    transform: scale(0.9);
+}
+
+/* Math (if enabled) */
+.milkdown .math {
+    font-size: 0.9em;
+}
+
+/* Footnotes / small text */
+.milkdown small {
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+/* Basic styling example */
+.milkdown .editor {
+    margin-left: 80px;
+    padding: 1rem;
+}
+
+
+
+/* Default Styles (for Light Theme) */
+.milkdown .editor {
+    caret-color: #000000;
+    /* Black caret for light theme */
+}
+
+/* Dark Theme Styles (when .dark class is added to a parent element) */
+.dark .milkdown .editor {
+    caret-color: #ffffff;
+    /* White caret for dark theme */
+}
+
+
+/* Media query for 75% */
+@media (max-width: 2800px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 1450px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+
+.milkdown .milkdown-image-block>.image-wrapper {
+    position: relative;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0;
+    min-width: 100px
+}
+
+
+
+
+/* Media query for 80% */
+@media (max-width: 2400px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 1250px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+
+
+/* Media query for 90% */
+@media (max-width: 2200px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 1100px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+
+/* Media query for 100% on normal screens */
+@media (max-width: 2000px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 900px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+
+/* Media query for 125% */
+@media (max-width: 1800px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 700px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+
+
+/* Media query for 150% */
+@media (max-width: 1600px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 400px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 1400px) {
+    .VulnReportEditor .milkdown .editor .milkdown-code-block {
+        width: 100%;
+        max-width: 450px;
+        /* Keeps the width fixed at 1000px even on smaller screens */
+    }
+}
+
+
+
+
+/* In your custom CSS file, e.g., custom-styles.css */
+.milkdown.editor mark {
+    /* Default marker style */
+    background-color: yellow;
+    padding: 0.1em 0.2em;
+    border-radius: 0.2em;
+    color: #333;
+    /* Ensure text is readable */
+}
+
+/* Specific style for markers with custom colors, using data-color attribute */
+.milkdown.editor mark[data-color] {
+    /* The background-color is set inline by toDOM, but you can add other styles */
+    font-weight: bold;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Example of overriding Crepe theme variables [8] */
+.crepe.milkdown {
+    --crepe-color-primary: #663399;
+    /* Example: a custom primary color */
+    --crepe-color-background: #f8f8f8;
+    /* Example: a slightly off-white background */
+}
+
+
+.RemoveSidemargin div .milkdown .editor {
+    margin-left: 0px;
+}
+
+/* AI Chat specific overrides */
+.AiChatEditor .milkdown .editor {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    min-height: auto !important;
+}
+
+.AiChatEditor .milkdown {
+    background: transparent !important;
+}
+
+.AiChatEditor .milkdown .ProseMirror {
+    padding: 0 !important;
+}

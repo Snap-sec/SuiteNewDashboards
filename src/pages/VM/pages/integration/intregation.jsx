@@ -1,0 +1,251 @@
+import { useMemo, useState } from 'react';
+import { Blocks, PlugZap, Terminal } from 'lucide-react';
+import { Helmet } from 'react-helmet';
+import { isError } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
+import {
+  useGetInstalledVmAdaptersQuery,
+  useGetVmAdapterListQuery,
+} from '@/services/vm/adaptersApi';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { EmptyScreen } from '@/components/common/empty-screen';
+import Select from '@/components/custom/select';
+import ApiErrorHandler from '../../../../components/common/api-error-handler';
+import PageHeading from '../../../../components/custom/page-heading';
+import { SearchInput } from '../../../../components/custom/search';
+import { IntegrationCard } from './components/integration-card';
+import ModalRegistry from './components/modal-registry';
+import RefreshLogs from './components/refresh-logs';
+import { IntegrationProvider } from './context/integration-context';
+import { useStore } from './store';
+
+const TAB_HEADINGS = {
+  'all-integrations': {
+    title: 'Integrations',
+    description: 'Connect and manage third-party security tools, services, and data sources.',
+  },
+  'active-integrations': {
+    title: 'Active Integrations',
+    description: 'View and manage currently connected and configured integrations.',
+  },
+  logs: {
+    title: 'Integration Logs',
+    description: 'Monitor sync history, webhook events, and integration execution logs.',
+  },
+};
+
+function Intregation2() {
+  const {
+    data,
+    isLoading: adaptersLoading,
+    error,
+    isError,
+  } = useGetVmAdapterListQuery();
+  const {
+    data: installedData,
+    isLoading: installedLoading,
+    isError: isInstalledError,
+    error:installedError,
+  } = useGetInstalledVmAdaptersQuery();
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const activeTab = searchParams.get('tab') || 'all-integrations';
+  const heading = TAB_HEADINGS[activeTab] || TAB_HEADINGS['all-integrations'];
+
+  const handleTabChange = (value) => {
+    setSearchParams((prev) => {
+      const nextParams = new URLSearchParams(prev);
+      nextParams.set('tab', value);
+      return nextParams;
+    });
+    setSearchQuery('');
+  };
+
+  const { setSelectedTab } = useStore();
+
+  const categories = ['All', ...(data?.categories || [])];
+
+  // Filter by search query (name, description, or category)
+  const filterBySearch = (adapters) => {
+    if (!searchQuery.trim()) return adapters;
+    const query = searchQuery.toLowerCase().trim();
+    return adapters?.filter(
+      (adapter) =>
+        adapter.title?.toLowerCase().includes(query) ||
+        adapter.description?.toLowerCase().includes(query) ||
+        adapter.category?.some((cat) => cat.toLowerCase().includes(query)),
+    );
+  };
+
+  const filteredAdapters = filterBySearch(
+    selectedCategory === 'All'
+      ? data?.adapters
+      : data?.adapters?.filter((adapter) =>
+          adapter.category?.includes(selectedCategory),
+        ),
+  );
+
+  const activeAdapters = useMemo(() => {
+    if (!installedData?.data || !data?.adapters) return [];
+
+    const installedList = installedData?.data
+      ?.map((installed) => {
+        const definition = data.adapters?.find(
+          (d) => d.type?.toLowerCase() === installed.adapterName?.toLowerCase(),
+        );
+        if (!definition) return null;
+
+        return {
+          ...definition,
+          ...installed,
+          instance_id: installed._id,
+          is_installed: true,
+        };
+      })
+      .filter(Boolean);
+
+    return filterBySearch([...installedList]);
+  }, [installedData, data, searchQuery]);
+
+  const categoryOptions = categories.map((cat) => ({
+    label: cat,
+    value: cat,
+  }));
+
+  return (
+    <IntegrationProvider>
+      <div className="p-4">
+        <Helmet>
+          <title>UniRisk | Integrations</title>
+        </Helmet>
+
+        <PageHeading
+          title={heading.title}
+          description={heading.description}
+        />
+
+        <Tabs value={activeTab} onValueChange={handleTabChange}>
+          <TabsList variant="line" size="md">
+            <div className="w-full flex flex-wrap gap-1 md:gap-5">
+              <TabsTrigger value="all-integrations">
+                {' '}
+                <Blocks /> All Integrations
+              </TabsTrigger>
+              <TabsTrigger value="active-integrations">
+                <PlugZap /> Active Integrations
+              </TabsTrigger>
+              <TabsTrigger value="logs">
+                <Terminal /> Logs
+              </TabsTrigger>
+            </div>
+
+            {/* search will appear here  */}
+            {activeTab != 'logs' && (
+              <div className="w-full flex justify-end">
+                <SearchInput
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search integrations..."
+                />
+              </div>
+            )}
+          </TabsList>
+
+          <TabsContent value="all-integrations">
+            <div className="flex justify-between items-center mt-2.5">
+              <div className="text-xs text-muted-foreground">
+                Showing{' '}
+                {adaptersLoading ? '...' : filteredAdapters?.length || 0}{' '}
+                integrations
+              </div>
+              <div className="w-[200px]">
+                {!adaptersLoading && (
+                  <Select
+                    value={selectedCategory}
+                    onChange={(option) =>
+                      setSelectedCategory(option?.value || 'All')
+                    }
+                    options={categoryOptions}
+                    placeholder="Filter by Category"
+                    enableSearch={true}
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {!isError && adaptersLoading ? (
+                [...Array(6)].map((_, i) => (
+                  <IntegrationCard key={i} isLoading={true} />
+                ))
+              ) : isError ? (
+                <div className="col-span-full">
+                  <ApiErrorHandler error={error} />
+                </div>
+              ) : filteredAdapters?.length > 0 ? (
+                filteredAdapters.map((adapter) => (
+                  <IntegrationCard
+                    key={adapter.title}
+                    adapter={adapter}
+                    view="all"
+                  />
+                ))
+              ) : (
+                <div className="col-span-full">
+                  <EmptyScreen
+                    title="No integrations found"
+                    subTitle={
+                      searchQuery
+                        ? `We couldn't find any integrations matching "${searchQuery}". Try a different search term or category.`
+                        : 'There are currently no integrations available.'
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="active-integrations">
+            <div className="py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {!isInstalledError && installedLoading || adaptersLoading ? (
+                [...Array(3)].map((_, i) => (
+                  <IntegrationCard key={i} isLoading={true} />
+                ))
+              ) : isInstalledError ?<div className="col-span-full">
+                <ApiErrorHandler error={installedError}/>
+              </div> : (
+                <>
+                  {activeAdapters?.map((adapter) => (
+                    <IntegrationCard
+                      key={adapter.instance_id}
+                      adapter={adapter}
+                      view="active"
+                    />
+                  ))}
+                  {activeAdapters?.length === 0 && (
+                    <div className="col-span-full">
+                      <EmptyScreen
+                        title="No active integrations found"
+                        subTitle="You haven't installed any integrations yet."
+                      />
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="logs">
+            <RefreshLogs />
+          </TabsContent>
+        </Tabs>
+
+        <ModalRegistry />
+      </div>
+    </IntegrationProvider>
+  );
+}
+
+export default Intregation2;

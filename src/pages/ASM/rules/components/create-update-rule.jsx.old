@@ -1,0 +1,140 @@
+import { Modal } from "@/components/custom/modal";
+import { Button } from "@/components/ui/button";
+import YamlEditor from "@/components/custom/yaml-editor/yaml-editor";
+import useStore from "../store";
+import { useState, useEffect, useCallback } from "react"; // Added useCallback
+import { Input } from "@/components/ui/input";
+import Select from "@/components/custom/select";
+
+import { useCreateAsmRuleMutation } from "@/services/asm/ruleApi";
+import { useUpdateAsmRuleMutation } from "@/services/asm/ruleApi"; // You'll need to uncomment and import this
+import { toast } from "sonner";
+
+
+const SEVERITIES = [
+    { label: "Critical", value: "critical" },
+    { label: "High", value: "high" },
+    { label: "Medium", value: "medium" },
+    { label: "Low", value: "low" },
+];
+
+
+function CreateUpdateModal() {
+
+    const [createRule] = useCreateAsmRuleMutation();
+    const [updateRule] = useUpdateAsmRuleMutation(); // Uncomment this when you have the mutation defined
+
+    const showModal = useStore((state) => state.showModal);
+    const setShowModal = useStore((state) => state.setShowModal);
+    const mode = useStore((state) => state.mode);
+    const setMode = useStore((state) => state.setMode); // Import setMode
+
+    const selectedRule = useStore((state) => state.selectedRule);
+
+    // Memoize getDisplayYaml for useEffect dependency
+    const getDisplayYaml = useCallback((yamlString) => {
+        let regex = /^(description|name|product|severity):.*/; // Updated regex to match whole lines including colon
+
+        let newBody = '';
+
+        for (let line of yamlString?.split("\n") || []) {
+            let match = line.match(regex);
+
+            if (!match) { // If there's no match, include the line
+                newBody += line + '\n';
+            }
+        }
+        return newBody.trim(); // Trim any trailing newline
+    }, []);
+
+
+    const [ruleName, setRuleName] = useState("");
+    const [ruleDescription, setRuleDescription] = useState("");
+    const [ruleSeverity, setRuleSeverity] = useState("");
+    const [yamlContent, setYamlContent] = useState(""); // Renamed for clarity, this holds the editor's raw content
+
+
+    useEffect(() => {
+        if (mode === "update" && selectedRule) {
+            setRuleName(selectedRule.name || "");
+            setRuleDescription(selectedRule.description || "");
+            setRuleSeverity(selectedRule.severity || "");
+            setYamlContent(getDisplayYaml(selectedRule.raw_yaml || "")); // Use getDisplayYaml for initial editor content
+        } else if (mode === "create") {
+            // Clear states when in create mode or modal is opened in create mode
+            setRuleName("");
+            setRuleDescription("");
+            setRuleSeverity("");
+            setYamlContent("");
+        }
+    }, [selectedRule, mode, getDisplayYaml]); // getDisplayYaml is now a stable dependency
+
+
+    const handleAction = () => { // Renamed to handleAction for both create/update
+        const basePayload = `name: ${ruleName}
+description: ${ruleDescription}
+severity: ${ruleSeverity}
+product: asm
+${yamlContent}
+`;
+
+        if (mode === "create") {
+            toast.promise(createRule(basePayload).unwrap(), {
+                loading: "Creating Rule...",
+                success: (res) => {
+                    setShowModal(false);
+                    setMode("create"); // Reset mode after successful creation
+                    return "Rule Created Successfully!";
+                },
+                error: (err) => {
+                    console.error("Failed to create rule:", err);
+                    return "Failed to create rule.";
+                }
+            });
+        } else if (mode === "update") {
+            toast.promise(updateRule({ ruleId: selectedRule._id, yaml: basePayload }).unwrap(), {
+                loading: "Updating Rule...",
+                success: (res) => {
+                    setShowModal(false);
+                    setMode("create"); // Reset mode after successful update
+                    return "Rule Updated Successfully!";
+                },
+                error: (err) => {
+                    console.error("Failed to update rule:", err);
+                    return "Failed to update rule.";
+                }
+            });
+            setShowModal(false); // Close modal even if update isn't fully implemented
+            setMode("create"); // Reset mode
+        }
+    };
+
+    return (
+        <Modal
+            className="w-1/2"
+            open={showModal}
+            setOpen={setShowModal}
+            title={mode === "create" ? "Create Rule" : "Update Rule"}
+            footer={
+                <div className="flex items-center justify-end gap-2">
+                    <Button variant="destructive" onClick={() => setShowModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button onClick={handleAction}> {/* Changed to handleAction */}
+                        {mode === "create" ? "Create" : "Update"}
+                    </Button>
+                </div>
+            }
+        >
+            <div className="flex flex-col gap-2">
+                <Input placeholder="Enter Rule Name" value={ruleName} onChange={(e) => setRuleName(e.target.value)} />
+                <Input placeholder="Enter Rule Description" value={ruleDescription} onChange={(e) => setRuleDescription(e.target.value)} />
+                <Select defaultValue={ruleSeverity} options={SEVERITIES} enableSearch={false} onChange={(option) => setRuleSeverity(option.value)} />
+            </div>
+            {/* YamlEditor's content is now directly tied to yamlContent state */}
+            <YamlEditor yaml={yamlContent} onChange={setYamlContent} />
+        </Modal>
+    );
+}
+
+export default CreateUpdateModal;

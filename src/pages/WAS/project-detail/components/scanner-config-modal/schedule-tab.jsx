@@ -1,0 +1,253 @@
+import { useState } from "react";
+import { Switch, SwitchWrapper } from "@/components/ui/switch";
+import Select from "@/components/custom/select";
+import TimePicker from "@/components/custom/time-picker";
+import { cn } from "@/lib/utils";
+import { useGetVmAssessmentsQuery } from "@/services/vm/assessmentsApi";
+import useScannerStore from "./scanner-store";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import CreateAssessmentModel from "@/pages/VM/pages/assessment/components/Modal/create-assessment-model";
+import { useAuth } from "@/auth/context/auth-context";
+
+function ScheduleTab({ isTabContent = true, hideIntegration = false, onlyIntegration = false }) {
+    const { formData, setFormData } = useScannerStore();
+    const [createAssessmentOpen, setCreateAssessmentOpen] = useState(false);
+    const CREATE_ASSESSMENT_VALUE = '__create_assessment__';
+    const { user } = useAuth();
+    const isAuditor = user?.role === 'Auditor';
+
+    const frequencies = [
+        { id: "one-time", label: "One-Time", description: "Single scan on trigger" },
+        { id: "hourly", label: "Hourly", description: "Every hour" },
+        { id: "daily", label: "Daily", description: "Once every 24 h" },
+        { id: "weekly", label: "Weekly", description: "Every 7 days" },
+        { id: "monthly", label: "Monthly", description: "Monthly cadence" },
+    ];
+
+
+    // Fetch assessments for dropdown
+    const [assessmentSearch, setAssessmentSearch] = useState("");
+    const {
+        data: assessments,
+        isLoading: assessmentsLoading,
+        isFetching: assessmentsFetching,
+    } = useGetVmAssessmentsQuery({
+        search: assessmentSearch,
+        limit: 20,
+        ...(formData.linkedAssessment ? { includeIds: formData.linkedAssessment } : {}),
+    });
+
+    const sortedAssessments = [...(assessments?.data?.assessments || [])].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+    const assessmentOptions = [
+        ...(!isAuditor ? [{ label: '+ Create Assessment', value: CREATE_ASSESSMENT_VALUE, className: 'text-primary font-medium', noNavigate: true }] : []),
+        { label: 'None', value: 'none', noNavigate: true },
+        ...sortedAssessments.map((a) => ({
+            label: a.title,
+            value: a._id,
+        })),
+    ];
+
+    const weekdayOptions = [
+        { label: "Monday", value: "1" },
+        { label: "Tuesday", value: "2" },
+        { label: "Wednesday", value: "3" },
+        { label: "Thursday", value: "4" },
+        { label: "Friday", value: "5" },
+        { label: "Saturday", value: "6" },
+        { label: "Sunday", value: "0" },
+    ];
+
+    const dayOfMonthOptions = Array.from({ length: 31 }, (_, i) => ({
+        label: `${i + 1}${getOrdinalSuffix(i + 1)}`,
+        value: String(i + 1),
+    }));
+
+    function getOrdinalSuffix(n) {
+        const s = ["th", "st", "nd", "rd"];
+        const v = n % 100;
+        return s[(v - 20) % 10] || s[v] || s[0];
+    }
+
+
+    const content = (
+        <div className={cn("flex flex-col gap-6", isTabContent ? "" : "")}>
+            {/* Scan Frequency - hide if onlyIntegration is true */}
+            {!onlyIntegration && (
+                <>
+                    {/* Divider with label */}
+                    <div className="relative py-2">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-border"></div>
+                        </div>
+                        <div className="relative flex justify-center">
+                            <span className="bg-background px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                Scan Frequency
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-sm">
+                    Scan Frequency
+                </label>
+                <div className="grid grid-cols-5 gap-2">
+                    {frequencies.map((freq) => (
+                        <button
+                            key={freq.id}
+                            type="button"
+                            onClick={() => setFormData({ frequency: freq.id })}
+                            className={cn(
+                                "flex flex-col items-center justify-center p-3 rounded-lg border transition-all text-center",
+                                formData.frequency === freq.id
+                                    ? "border-primary bg-primary/5"
+                                    : "border-border hover:border-muted-foreground/50"
+                            )}
+                        >
+                            <span className={cn(
+                                "text-sm font-medium",
+                                formData.frequency === freq.id ? "text-primary" : "text-foreground"
+                            )}>{freq.label}</span>
+                            <span className="text-xs text-muted-foreground mt-0.5">{freq.description}</span>
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Time & Parameters - hide for one-time and hourly */}
+            {formData.frequency !== "one-time" && formData.frequency !== "hourly" && (
+                <>
+                    <div className="relative py-2">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-border"></div>
+                        </div>
+                        <div className="relative flex justify-center">
+                            <span className="bg-background px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                Time & Parameters
+                            </span>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        {formData.frequency !== "weekly" && formData.frequency !== "monthly" && (
+                            <div className="flex flex-col gap-1.5 col-span-2">
+                                <label className="text-sm">
+                                    Scan Time (UTC)
+                                </label>
+                                <TimePicker value={formData.scanTime} onChange={(time) => setFormData({ scanTime: time })} />
+                            </div>
+                        )}
+
+                        {/* Day of Week - for weekly */}
+                        {formData.frequency === "weekly" && (
+                            <div className="flex flex-col gap-1.5 col-span-2">
+                                <label className="text-sm">
+                                    Day of Week
+                                </label>
+                                <Select
+                                    options={weekdayOptions}
+                                    value={formData.dayOfWeek}
+                                    onChange={(opt) => setFormData({ dayOfWeek: opt?.value })}
+                                    placeholder="Select day..."
+                                />
+                            </div>
+                        )}
+
+                        {/* Day of Month - for monthly */}
+                        {formData.frequency === "monthly" && (
+                            <div className="flex flex-col gap-1.5 col-span-2">
+                                <label className="text-sm">
+                                    Day of Month
+                                </label>
+                                <Select
+                                    options={dayOfMonthOptions}
+                                    value={formData.dayOfMonth}
+                                    onChange={(opt) => setFormData({ dayOfMonth: opt?.value })}
+                                    placeholder="Select day..."
+                                />
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
+                </>
+            )}
+
+            {/* Hide integration section if hideIntegration is true */}
+            {!hideIntegration && (
+                <>
+                    {/* Divider */}
+                    {!onlyIntegration && (
+                        <div className="relative py-2">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-border"></div>
+                            </div>
+                            <div className="relative flex justify-center">
+                                <span className="bg-background px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                    Vulnerability Reporting Synchronization
+                                </span>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Auto-Sync Results */}
+                    <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border border-border">
+                        <div className="flex flex-col gap-0.5">
+                            <span className="text-sm font-medium">Auto-Sync Results</span>
+                            <span className="text-xs text-muted-foreground">
+                                Automatically push new findings to the linked assessment in real-time.
+                            </span>
+                        </div>
+                        <SwitchWrapper>
+                            <Switch checked={formData.autoSync} onCheckedChange={(val) => setFormData({ autoSync: val })} />
+                        </SwitchWrapper>
+                    </div>
+
+
+                    {/* Link Assessment */}
+                    <div className="flex flex-col gap-2 pb-6">
+                        <label className="text-sm">
+                            Link Assessment
+                        </label>
+                        <p className="text-xs text-muted-foreground -mt-1">
+                            Vulnerabilities discovered will be stored into the selected assessment.
+                        </p>
+                        <Select
+                            options={assessmentOptions}
+                            value={formData.linkedAssessment || 'none'}
+                            onChange={(opt) => {
+                                if (opt?.value === CREATE_ASSESSMENT_VALUE) {
+                                    setCreateAssessmentOpen(true);
+                                } else {
+                                    setFormData({ linkedAssessment: opt?.value });
+                                }
+                            }}
+                            onSearchChange={setAssessmentSearch}
+                            isSearching={assessmentsFetching}
+                            enableSearch={true}
+                            placeholder="Select an assessment..."
+                            areOptionsNavigating
+                        />
+                        <CreateAssessmentModel
+                            open={createAssessmentOpen}
+                            setOpen={setCreateAssessmentOpen}
+                        />
+                    </div>
+                </>
+            )}
+        </div>
+    );
+
+    if (isTabContent) {
+        return (
+            <ScrollArea className="h-[468px] pr-3">
+                {content}
+            </ScrollArea>
+        );
+    }
+
+    return content;
+}
+
+export default ScheduleTab;

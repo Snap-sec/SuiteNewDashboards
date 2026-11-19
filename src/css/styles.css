@@ -1,0 +1,169 @@
+/* Tailwind Core */
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+/* ReUI Configs */
+@import './config.reui.css';
+
+/** Global Styles **/
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  *:focus-visible {
+    @apply outline-ring rounded-xs shadow-none outline-2 outline-offset-3 transition-none!;
+  }
+}
+
+@layer components {
+  /* Improve Markdown Rendering in Chat */
+  .prose {
+    @apply text-foreground/90 max-w-none;
+  }
+  
+  .prose p {
+    @apply mb-4 leading-relaxed block;
+  }
+
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply font-bold text-foreground mb-4 mt-6 flex items-center gap-2;
+    line-height: 1.2;
+  }
+
+  .prose h1 { @apply text-2xl mt-8; }
+  .prose h2 { @apply text-xl border-b border-border/50 pb-2 mb-4 mt-8; }
+  .prose h3 { @apply text-lg mt-6; }
+
+  .prose ul {
+    @apply mb-4 pl-5 list-disc;
+    display: block !important;
+  }
+
+  .prose ol {
+    @apply mb-4 pl-5 list-decimal;
+    display: block !important;
+  }
+
+  .prose li {
+    @apply mb-1.5 pl-1;
+    display: list-item !important;
+  }
+
+  .prose strong {
+    @apply font-bold text-foreground;
+  }
+
+  .prose table {
+    @apply w-full border-collapse my-6 overflow-hidden rounded-lg border border-border text-sm;
+  }
+
+  .prose thead {
+    @apply bg-muted/50;
+  }
+
+  .prose th {
+    @apply px-4 py-2.5 text-left font-bold text-foreground border-b border-border;
+  }
+
+  .prose td {
+    @apply px-4 py-2.5 border-b border-border text-foreground/80;
+  }
+
+  .prose tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Specific utility for Chat Editor to remove extraneous margins */
+  .AiChatEditor .prose p:first-child {
+    @apply mt-0;
+  }
+  
+  .AiChatEditor .prose p:last-child {
+    @apply mb-0;
+  }
+
+  .prose pre {
+    @apply p-0 bg-[#0d0d0d] rounded-xl overflow-hidden my-6 border border-white/10 shadow-lg;
+  }
+
+  /* Fix for the white gap in code blocks */
+  .code-block-wrapper pre {
+    @apply !m-0 !rounded-t-none !border-t-0 !shadow-none !bg-transparent;
+  }
+
+  .prose pre code {
+    @apply block p-4 text-sm leading-relaxed text-gray-300 font-mono bg-transparent border-0;
+  }
+
+  .code-block-wrapper {
+    @apply relative overflow-hidden rounded-xl border border-white/10 bg-[#0d0d0d] my-6;
+  }
+
+  .code-block-header {
+    @apply flex items-center justify-between px-4 py-2.5 bg-[#2f2f2f] text-gray-400 text-xs font-sans;
+  }
+
+  .copy-button {
+    @apply flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer font-medium;
+  }
+}
+
+/* Metronic Components  */
+@import './components/image-input.css';
+@import './components/apexcharts.css';
+@import './components/leaflet.css';
+@import './components/rating.css';
+@import './components/image-input.css';
+@import './components/scrollable.css';
+
+/* Demos */
+@import './demos/demo1.css';
+
+/** Dark/Light Theme Variant **/
+@custom-variant dark (&:is(.dark *));
+@custom-variant light (&:not(.dark *));
+
+/* Thin custom scrollbars */
+.thin-scrollbar,
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, currentColor 22%, transparent) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track,
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb,
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 9999px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover,
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.thin-scrollbar::-webkit-scrollbar-button,
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.thin-scrollbar::-webkit-scrollbar-corner,
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+

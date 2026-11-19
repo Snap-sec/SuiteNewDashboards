@@ -1,31 +1,120 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aperture — Surface Command</title>
-    <script>
-      (function () {
-        var stored = null;
-        try {
-          stored = localStorage.getItem("aperture-theme");
-        } catch (error) {
-          stored = null;
-        }
-        var prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
+<html class="h-full" lang="en" dir="ltr">
+
+<head>
+  <title></title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/public/media/logos/snapsec.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="keywords" content="keenthemes,react,material,kit,application,dashboard,admin,template" />
+  <meta name="author" content="Metronic - Tailwind React Template" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+
+  <meta property="og:title" content="SnapSec Suite — Unified Cybersecurity Products" />
+  <meta property="og:description"
+    content="Discover SnapSec Suite: Powerful tools for Vulnerability Management, Attack Surface Management, Asset Inventory, Vulnerability Scanning, and Threat Modeling — all in one place for complete cybersecurity coverage." />
+  <meta property="og:image" content="./media/images/products.png" />
+  <meta property="og:url" content="https://suite.snapsec.co" />
+
+  <style>
+    .dark body {
+      background-color: hsl(240 10% 4%);
+    }
+
+    .hide-scrollbar {
+      /* Firefox */
+      scrollbar-width: none;
+
+      /* IE & Edge (legacy) */
+      -ms-overflow-style: none;
+    }
+
+    /* Chrome, Safari, Opera */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    /* Light mode tooltip text */
+    .apexcharts-tooltip,
+    .apexcharts-tooltip *,
+    .apexcharts-tooltip-text,
+    .apexcharts-tooltip-title-text,
+    .apexcharts-tooltip-series-group,
+    .apexcharts-label-text {
+      color: #000000 !important;
+      fill: #000000 !important;
+      /* for SVG text */
+    }
+
+    /* Dark mode tooltip text */
+    .dark .apexcharts-tooltip,
+    .dark .apexcharts-tooltip *,
+    .dark .apexcharts-tooltip-text,
+    .dark .apexcharts-tooltip-title-text,
+    .dark .apexcharts-tooltip-series-group,
+    .dark .apexcharts-label-text {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+      /* for SVG text */
+    }
+
+    /* Global ApexCharts text color - Light mode */
+    .apexcharts-text,
+    .apexcharts-xaxis text,
+    .apexcharts-yaxis text,
+    .apexcharts-datalabel,
+    .apexcharts-legend-text {
+      fill: #000000 !important;
+      /* SVG text */
+      color: #000000 !important;
+      /* fallback */
+    }
+
+    /* Global ApexCharts text color - Dark mode */
+    .dark .apexcharts-text,
+    .dark .apexcharts-xaxis text,
+    .dark .apexcharts-yaxis text,
+    .dark .apexcharts-datalabel,
+    .dark .apexcharts-legend-text {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+    }
+
+    /* Axis lines & grid lines (Light) */
+    .apexcharts-gridline,
+    .apexcharts-xaxis line,
+    .apexcharts-yaxis line {
+      stroke: #cccccc !important;
+    }
+
+    /* Axis lines & grid lines (Dark) */
+    .dark .apexcharts-gridline,
+    .dark .apexcharts-xaxis line,
+    .dark .apexcharts-yaxis line {
+      stroke: #555555 !important;
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        const theme = localStorage.getItem('theme') || 'system';
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)',
         ).matches;
-        var isDark =
-          stored === "dark" || (stored !== "light" && prefersDark);
-        document.documentElement.classList.toggle("dark", isDark);
-        document.documentElement.style.colorScheme = isDark
-          ? "dark"
-          : "light";
-      })();
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+        const isDarkMode =
+          theme === 'dark' || (theme === 'system' && prefersDark);
+        if (isDarkMode) document.documentElement.classList.add('dark');
+      } catch (e) { }
+    })();
+  </script>
+  <script src="/env-config.js"></script>
+</head>
+
+<body class="text-foreground bg-background flex h-full text-base antialiased">
+  <div class="flex grow" id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

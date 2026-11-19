@@ -1,0 +1,29 @@
+import { create } from 'zustand';
+
+
+const useStore = create((set) => ({
+    pagination: { pageIndex: 0, pageSize: 10 },  // for tanstack table
+    searchQuery: "",
+    filters: {},
+    sorting: [],
+    showAddGroupModal: false,
+    selectedAsset: "",
+    selectedGroups: [], // stores groups that are assocaited with asset
+    rowSelection: {},
+
+    setPagination: (callback) => (set((state) => { let newState = callback(state.pagination); return { pagination: newState }; })),   // for tanstack table (passes callback)
+    setSearchQuery: (search) => (set(() => ({ searchQuery: search }))),
+    setFilters: (callback) => (set((state) => { let newState = callback(state.filters); return { filters: newState } })),
+    setSorting: (callback) => (set((state) => { let newState = callback(state.sorting); if (!newState.length) return { sorting: [] }; return { sorting: [newState.at(-1)] }; })),
+    setShowAddGroupModal: (open) => set({ showAddGroupModal: open }),
+    setSelectedAsset: (asset) => set({ selectedAsset: asset }),
+    setSelectedGroups: (callback) =>
+        set((state) => {
+            const newGroups = callback(state.groups);
+            return { selectedGroups: newGroups };
+        }), // sets groups that are assocaited with asset
+    setRowSelection: (callback) => (set((state) => { let newState = callback(state.rowSelection); return { rowSelection: newState }; }))
+}));
+
+
+export default useStore;

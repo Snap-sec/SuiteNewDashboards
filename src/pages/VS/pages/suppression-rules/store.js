@@ -1,0 +1,25 @@
+import { create } from 'zustand';
+
+
+const useStore = create((set) => ({
+    pagination: { pageIndex: 0, pageSize: 10 },  // for tanstack table
+    searchQuery: "",
+    filters: {},
+    sorting: [],
+    showModal: false,
+    selectedExposure: {},
+    mode: "create",
+    selectedRule: {},
+
+    setPagination: (callback) => (set((state) => { let newState = callback(state.pagination); return { pagination: newState }; })),   // for tanstack table (passes callback)
+    setPage: (page) => (set((state) => ({ pagination: { ...state.pagination, pageIndex: page - 1 } }))),
+    setSearchQuery: (search) => (set(() => ({ searchQuery: search }))),
+    setFilters: (callback) => (set((state) => { let newState = callback(state.filters); return { filters: newState } })),
+    setSorting: (callback) => (set((state) => { let newState = callback(state.sorting); if (!newState.length) return { sorting: [] }; return { sorting: [newState.at(-1)] }; })),
+    setShowModal: (open) => set({ showModal: open }),
+    setSelectedRule: (rule) => set({ selectedRule: rule }),
+    setMode: (mode) => set({ mode: mode }),
+}));
+
+
+export default useStore;

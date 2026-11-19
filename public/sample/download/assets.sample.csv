@@ -1,0 +1,11 @@
+type,value,environment,title,status,description
+subdomain,api.example.com,production,Core REST API Gateway,active,Primary production API endpoint
+subdomain,app.example.com,production,Customer Dashboard Portal,active,Web application frontend
+ip,192.168.1.100,production,Internal Database Host,active,Primary PostgreSQL DB host
+ip,10.0.4.15,staging,Staging App Server,active,Staging application worker node
+domain,example.com,production,Main Corporate Domain,active,Primary enterprise domain
+repository,github.com/org/auth-service,production,Authentication Service,active,User authentication microservice codebase
+server,prod-db-master-01,production,Production DB Primary Node,active,Primary database cluster host
+workstation,dev-mac-042,internal,Engineering Workstation,active,Developer workstation
+object_storage,s3://prod-user-uploads,production,S3 Uploads Bucket,active,AWS S3 bucket storing user uploads
+api,https://api.example.com/v1/payments,production,Payment Gateway API,active,Stripe payment integration API endpoint

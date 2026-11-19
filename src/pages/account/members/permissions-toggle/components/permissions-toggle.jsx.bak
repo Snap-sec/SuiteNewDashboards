@@ -1,0 +1,387 @@
+import { useEffect, useState } from 'react';
+import { HexagonBadge } from '@/partials/common/hexagon-badge';
+import { id } from 'date-fns/locale/id';
+import { BarChart3, CreditCard, LogOut, Map, MousePointerClick, Settings, ShieldCheck, ShieldOff, Store, Users } from 'lucide-react';
+import { Link } from 'react-router';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useUpdateRoleMutation, useUpdateTeamMutation } from '@/services/auth/authApi';
+import { useGetOrgMemberQuery, useUpdateMemberAccessMutation } from '@/services/auth/orgApi';
+import { useGetTeamsQuery } from '@/services/auth/teamsApi';
+import { useAddVmAssessmentsCollaboratorBulkMutation, useGetCollaboratorAssessmentsQuery, useGetVmAssessmentsQuery } from '@/services/vm/assessmentsApi';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import MultiSelect from '@/components/custom/multi-select';
+import Select from '@/components/custom/select';
+import { useActivateMemberMutation } from '@/services/auth/orgApi';
+import appConfig from "@/config/appConfig";
+import { Profile } from "@/components/custom/profile";
+
+
+const ITEMS = [
+  {
+    // icon: Settings,
+    icon: '/public/media/logos/vm.svg',
+    title: 'Vulnerability Management',
+    slug: 'VM',
+    description: 'Users may view and update the settings of the workspace.',
+    checked: true,
+  },
+  {
+    // icon: CreditCard,
+    icon: '/public/media/logos/asm.svg',
+    title: 'Attack Surface Management',
+    slug: 'ASM',
+    description: 'Users are authorized to review, update subscriptions.',
+    checked: false,
+  },
+  {
+    // icon: MousePointerClick,
+    icon: '/public/media/logos/vs.svg',
+    title: 'Vulnerability Scanning',
+    slug: 'VS',
+    description:
+      'Scan and identify security vulnerabilities within the workspace.',
+    checked: true,
+  },
+  {
+    // icon: Map,
+    icon: '/public/media/logos/aim.svg',
+    title: 'Asset Inventory Management',
+    slug: 'AIM',
+    description: 'Initiate new mapping projects within workspace.',
+    checked: false,
+  },
+  {
+    // icon: LogOut,
+    icon: '/public/media/logos/tm.svg',
+    title: 'Threat Modeler',
+    slug: 'TM',
+    description: 'Analyze and model security threats within the workspace.',
+    checked: true,
+  },
+  {
+    // icon: LogOut,
+    icon: '/public/media/logos/api-sec.svg',
+    title: 'API Security',
+    slug: 'APISEC',
+    description: 'Manage and secure APIs.',
+    checked: true,
+  },
+];
+
+const ROLES = [
+  { label: 'Member', value: 'Member' },
+  { label: 'Admin', value: 'Admin' },
+];
+
+
+
+const PermissionsToggle = () => {
+  const location = useLocation();
+  const [params] = useSearchParams();
+
+  const { data: member } = useGetOrgMemberQuery(params.get("memberId"));
+
+  // const member = location.state;
+
+  const [items, setItems] = useState(ITEMS);
+  const [accessTo, setAccessTo] = useState(member?.accessTo?.user || []);
+  const [selectedAssessments, setSelectedAssessments] = useState([]);
+  const [selectedRole, setSelectedRole] = useState(member?.role);
+  const [selectedTeams, setSelectedTeams] = useState([]);
+  const [assessmentSearch, setAssessmentSearch] = useState('');
+  const [teamSearch, setTeamSearch] = useState('');
+
+  const [isMemberActive, setIsMemberActive] = useState(
+    location.state?.lockedDueToInactivity
+  );
+
+
+  const [updateMemberAccess] = useUpdateMemberAccessMutation();
+  const [addBulkCollaborators] = useAddVmAssessmentsCollaboratorBulkMutation();
+  const [updateRole] = useUpdateRoleMutation();
+  const [updateTeam] = useUpdateTeamMutation();
+
+  const [activateMember, {isLoading: isActivatingMember}] = useActivateMemberMutation()
+
+  const { data: assessments, isLoading: assessmentsLoading } =
+    useGetVmAssessmentsQuery({ search: assessmentSearch });
+  const {
+    data: collaboratorAssessments,
+    isLoading: collaboratorAssessmentsLoading,
+  } = useGetVmCollaboratorAssessmentsQuery(params.get("memberId"));
+  const { data: teams, isLoading: teamsLoading } = useGetTeamsQuery({
+    search: teamSearch,
+  });
+
+  // Sync collaborator assessments with selectedAssessments on load
+  useEffect(() => {
+    if (collaboratorAssessments?.data) {
+      const initialSelected = collaboratorAssessments.data.map((a) => ({
+        id: a._id,
+        label: a.title,
+        value: a._id,
+      }));
+      setSelectedAssessments(initialSelected);
+    }
+  }, [collaboratorAssessments]);
+
+  // Sync member teams with selectedTeams on load
+  useEffect(() => {
+    if (member?.team && Array.isArray(member.team)) {
+      const initialSelected = member.team.map((team) => ({
+        id: team._id,
+        label: team.name,
+        value: team._id,
+      }));
+      setSelectedTeams(initialSelected);
+    }
+  }, [member]);
+
+  const handleUpdateMemberAccess = (product) => {
+    let newAccessTo = [...accessTo];
+    if (newAccessTo.includes(product)) {
+      newAccessTo = newAccessTo.filter((a) => a !== product);
+    } else {
+      newAccessTo = [...newAccessTo, product];
+    }
+
+    updateMemberAccess({
+      accessTo: newAccessTo,
+      userId: params.get('memberId'),
+    })
+      .unwrap()
+      .then((response) => {
+        // Load user from localStorage
+        const userStr = localStorage.getItem('user'); // Or your chosen localStorage key
+        let userObj = userStr ? JSON.parse(userStr) : {};
+
+        // Update accessTo in user object
+        userObj.accessTo = response?.data?.accessTo;
+
+        // Save back to localStorage
+        localStorage.setItem('user', JSON.stringify(userObj));
+
+        setAccessTo(response?.data?.accessTo);
+        toast.success('Access updated!');
+      })
+      .catch(() => {
+        toast.error('Failed to update access');
+      });
+  };
+
+  const handleAssessmentsChange = (selectedValues) => {
+    setSelectedAssessments(selectedValues);
+  };
+
+  const handleUpdateAssessmentAccess = () => {
+    const collaborator = {
+      email: member.email,
+      name: member.name,
+      userId: member.userId,
+    };
+
+    const assessmentIds = selectedAssessments.map((a) => a.value);
+
+    toast.promise(
+      addBulkCollaborators({ collaborator, assessmentIds }).unwrap(),
+      {
+        loading: 'Updating Assessments access',
+        success: 'Assessments updated',
+        error: 'Failed to change assessment access',
+      },
+    );
+  };
+
+  const handleUpdateRoleMutation = () => {
+    toast.promise(
+      updateRole({ userId: member.userId, role: selectedRole }).unwrap(),
+      {
+        loading: 'Updating Role',
+        error: 'Failed to update the role',
+        success: 'Role updated',
+      },
+    );
+  };
+
+  const handleTeamsChange = (selectedValues) => {
+    setSelectedTeams(selectedValues);
+  };
+
+  const handleUpdateTeamMutation = () => {
+    const teamIds = selectedTeams.map((team) => team.value);
+    toast.promise(
+      updateTeam({ userId: member.userId, teamIds: teamIds }).unwrap(),
+      {
+        loading: 'Updating Teams',
+        error: 'Failed to update the teams',
+        success: 'Teams updated',
+      },
+    );
+  };
+
+  const renderItem = (item, index) => {
+    return (
+      <div
+        key={index}
+        className="rounded-xl border p-4 flex items-center justify-between gap-2.5"
+      >
+        <div className="flex items-center gap-3.5">
+          <HexagonBadge
+            stroke="stroke-input"
+            fill="fill-muted/30"
+            size="size-[45px]"
+            // badge={<item.icon className="text-lg text-muted-foreground" />}
+            badge={<img src={item.icon} alt="sdasd" />}
+          />
+
+          <div className="flex flex-col gap-1">
+            <span className="flex items-center gap-1.5 leading-none font-medium text-sm text-mono">
+              {item.title}
+            </span>
+            <span className="text-sm text-secondary-foreground">
+              {item.description}
+            </span>
+          </div>
+        </div>
+        <Switch
+          id="size-sm"
+          size="sm"
+          onClick={() => handleUpdateMemberAccess(item.slug)}
+          defaultChecked={accessTo.includes(item.slug)}
+          value={index}
+        />
+      </div>
+    );
+  };
+
+  // Activate member disabled by Inactivity
+  const handleActivateMember = () => {
+    toast.promise(
+      activateMember(
+        location.state.userId
+          ? { userId: location.state.userId }
+          : { email: location.state.email },
+      ).unwrap(),
+      {
+        loading: 'Restoring Member Access',
+        success: () => {
+          setIsMemberActive(true);
+          return 'Member Access Restored';
+        },
+        error: 'Error Restoring Member Access',
+      },
+    );
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="w-full flex items-center justify-between gap-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>User Information</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Profile email={member?.email} />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Role & Assessment Access</CardTitle>
+          </CardHeader>
+          <CardContent className="w-full flex justify-between gap-16">
+            <div className="w-full">
+              <Label>Update User Role: </Label>
+              <div className="flex items-center gap-2">
+                <Select
+                  defaultValue={selectedRole}
+                  options={ROLES}
+                  onChange={(option) => setSelectedRole(option.value)}
+                />
+                <Button variant="outline" onClick={handleUpdateRoleMutation}>
+                  Update
+                </Button>
+              </div>
+            </div>
+            <div className="w-full">
+              <Label>Update Teams </Label>
+              {!teamsLoading && (
+                <div className="flex gap-2 items-center">
+                  <div className="w-full">
+                    <MultiSelect
+                      options={
+                        teams?.map((team) => ({
+                          id: team._id,
+                          label: team.name,
+                          value: team._id,
+                        })) || []
+                      }
+                      values={selectedTeams}
+                      onChange={handleTeamsChange}
+                      onSearchChange={(search) => setTeamSearch(search)}
+                      placeholder="Select teams"
+                      showSelectedPreview={false}
+                    />
+                  </div>
+                  <Button variant="outline" onClick={handleUpdateTeamMutation}>
+                    Update
+                  </Button>
+                </div>
+              )}
+            </div>
+            <div className="w-full">
+              <Label>Update Access to Assessments: </Label>
+              {!assessmentsLoading && !collaboratorAssessmentsLoading && (
+                <div className="flex gap-2 items-center">
+                  <div className="w-full">
+                    <MultiSelect
+                      options={
+                        assessments?.data?.assessments?.map((a) => ({
+                          id: a._id,
+                          label: a.title,
+                          value: a._id,
+                        })) || []
+                      }
+                      values={selectedAssessments}
+                      onChange={handleAssessmentsChange}
+                      onSearchChange={(search) => setAssessmentSearch(search)}
+                      placeholder="Select assessments"
+                      showSelectedPreview={false}
+                    />
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={handleUpdateAssessmentAccess}
+                  >
+                    Update
+                  </Button>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Product Access for{' '}
+            <Button mode="link" asChild>
+              <Link to="#">{member?.firstName || member?.email}</Link>
+            </Button>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 lg:grid-cols-2 gap-5 py-5 lg:py-7.5">
+          {items.map((item, index) => {
+            return renderItem(item, index);
+          })}
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export { PermissionsToggle };

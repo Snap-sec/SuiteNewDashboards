@@ -1,0 +1,11 @@
+[
+    {
+      "type": "qradar",
+      "logo": "qradar.svg",
+      "path": "/",
+      "name": "QRadar",
+      "slug": "qradar",
+      "description": "Synchronize security logs and access logs with QRadar",
+      "installed": false
+    }
+]

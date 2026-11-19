@@ -1,0 +1,106 @@
+import { create } from 'zustand';
+
+const mapFrequency = (freq) => {
+    if (freq === 'once') return 'one-time';
+    return freq || 'one-time';
+};
+
+const initialState = {
+    // Basic config
+    activeTab: "configuration",
+    scanTarget: "aggressive",
+    projectId: null,
+
+    // Form data
+    formData: {
+        scannerName: "",
+        applicationName: "",
+        targetUrl: "",
+        tagsArray: [],
+        scope: [],
+        excludeScope: [],
+        inScopeUrls: [""],
+        exclusionPatterns: [""],
+        scanProfile: null,
+        apiCollection: [],
+        environment: null,
+        owner: null,
+        authScript: null,
+        authScript2: null,
+        successCriteria: "",
+
+        manual_ingestion_enabled: false,
+        auth_type: null,
+
+        // Schedule
+        frequency: "one-time",
+        autoSync: false,
+        scanTime: null,
+        linkedAssessment: null,
+        dayOfWeek: "1",
+        dayOfMonth: "1",
+        notifications: ["scan_completed", "new_critical_finding"],
+    }
+};
+
+const useScannerStore = create((set, get) => ({
+    ...initialState,
+
+    // Actions
+    setActiveTab: (tab) => set({ activeTab: tab }),
+    setScanTarget: (target) => set({ scanTarget: target }),
+
+    setFormData: (update) => set((state) => ({
+        formData: typeof update === 'function' ? update(state.formData) : { ...state.formData, ...update }
+    })),
+
+    // Initialize store from projectData
+    initFromProject: (projectData) => {
+        const config = projectData?.configuration || {};
+        const scanSettings = projectData?.scanSettings || {};
+
+        const scanTarget = projectData?.configuration?.scan_method ||
+            projectData?.configuration?.scan_type ||
+            (projectData?.configuration?.target_type === "api" ? "quick" :
+                projectData?.configuration?.target_type === "webapp" ? "aggressive" :
+                    (projectData?.configuration?.collection_uids?.length > 0 ? "quick" : "aggressive"));
+
+        // Normalize 'intelligent' (from CrawlerSetting) to 'ai'
+        const normalizedScanTarget = scanTarget === 'intelligent' ? 'ai' : scanTarget;
+
+        set({
+            projectId: projectData?._id,
+            scanTarget: normalizedScanTarget,
+            formData: {
+                scannerName: projectData?.name || "",
+                applicationName: config.application_name || "",
+                targetUrl: config.target_url || "",
+                tagsArray: config.tags || [],
+                scope: config.scope || [],
+                excludeScope: config.exclude_scope || [],
+                inScopeUrls: (config.scope && config.scope.length > 0) ? config.scope.map(s => s.value) : [""],
+                exclusionPatterns: (config.exclude_scope && config.exclude_scope.length > 0) ? config.exclude_scope.map(s => s.value) : [""],
+                scanProfile: scanSettings.auth_profile_id || null,
+                apiCollection: config.collection_uids || [],
+                environment: config.environment_id || null,
+                owner: projectData?.owner || null,
+                authScript: projectData?.authScript || null,
+                authScript2: projectData?.authScript2 || null,
+                successCriteria: config.success_criteria || "",
+                manual_ingestion_enabled: projectData?.manual_ingestion_enabled || false,
+                auth_type: projectData?.auth_type || null,
+                frequency: mapFrequency(scanSettings.frequency),
+                autoSync: scanSettings.auto_sync || false,
+                scanTime: scanSettings.time ? new Date(scanSettings.time) : null,
+                linkedAssessment: scanSettings.assessmentId || null,
+                dayOfWeek: scanSettings.weekday !== undefined ? String(scanSettings.weekday) : "1",
+                dayOfMonth: scanSettings.day_of_month !== undefined ? String(scanSettings.day_of_month) : "1",
+                notifications: scanSettings.notifications || ["scan_completed", "new_critical_finding"],
+            }
+        });
+    },
+
+    reset: () => set(initialState)
+}));
+
+export default useScannerStore;
