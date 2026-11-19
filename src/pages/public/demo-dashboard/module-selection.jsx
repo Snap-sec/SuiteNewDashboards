@@ -35,24 +35,6 @@ const products = [
         locked: false,
         icon: MonitorSmartphone,
     },
-    {
-        logo: 'vs.svg',
-        title: 'VS',
-        name: 'Vulnerability Scanner',
-        description: 'Automated scanning engine for web apps, APIs, and network infrastructure.',
-        link: '/demo',
-        locked: false,
-        icon: Shield,
-    },
-    {
-        logo: 'was.svg',
-        title: 'WAS',
-        name: 'Web Application Scanner',
-        description: 'Deep crawl and scan web applications for OWASP Top 10 and beyond.',
-        link: '/demo',
-        locked: true,
-        icon: Globe,
-    },
 ];
 
 /* ── CSS keyframes injected once ── */

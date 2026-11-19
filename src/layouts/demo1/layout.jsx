@@ -18,9 +18,6 @@ const ACCESS_MAP = {
   '/vm': 'VM',
   '/casm': 'ASM',
   '/caim': 'AIM',
-  '/vs': 'VS',
-  '/threat-modeler': 'TM',
-  '/was': 'WAS',
 };
 
 export function Demo1Layout() {

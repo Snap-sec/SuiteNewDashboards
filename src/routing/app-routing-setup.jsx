@@ -14,19 +14,13 @@ import { ASMRoutingSetup } from './routes/asm.routes';
 // NEW AIM routes
 import { AssetInventoryRoutingSetup } from './routes/asset.inventory.routes';
 import { AutomationRoutingSetup } from './routes/automation.routes';
-import { CSMRoutingSetup } from './routes/csm.routes';
 import { DemoRoutingSetup } from './routes/demo.routes';
 import { ErrorRoutesSetup } from './routes/error.routes';
 import { ProfileRoutingSetup } from './routes/profile.routes';
 import { PublicRoutingSetup } from './routes/public.routes';
-import { SastRoutingSetup } from './routes/sast.routes';
-import { ScaRoutingSetup } from './routes/sca.routes';
 import { ServiceProviderRoutingSetup } from './routes/serivce-provider.routes';
-import { TMRoutingSetup } from './routes/tm.routes';
 import { VMRoutingSetup } from './routes/vm.routes';
 // other routes
-import { VsRoutingSetup } from './routes/vs.routes';
-import { ApiSecRoutingSetup } from './routes/was.routes';
 import { AutoPTRoutingSetup } from './routes/auto.pt.routes';
 
 const DemoMagicLogin = React.lazy(
@@ -135,18 +129,6 @@ export function AppRoutingSetup() {
           />
 
           <Route
-            path="/vs/*"
-            element={
-              <ErrorBoundary
-                resetKey={location.pathname}
-                fallback={<CrashError />}
-              >
-                <VsRoutingSetup />
-              </ErrorBoundary>
-            }
-          />
-
-          <Route
             path="/vm/*"
             element={
               <ErrorBoundary
@@ -171,30 +153,6 @@ export function AppRoutingSetup() {
           />
 
           <Route
-            path="/threat-modeler/*"
-            element={
-              <ErrorBoundary
-                resetKey={location.pathname}
-                fallback={<CrashError />}
-              >
-                <TMRoutingSetup />
-              </ErrorBoundary>
-            }
-          />
-
-          <Route
-            path="/was/*"
-            element={
-              <ErrorBoundary
-                resetKey={location.pathname}
-                fallback={<CrashError />}
-              >
-                <ApiSecRoutingSetup />
-              </ErrorBoundary>
-            }
-          />
-
-          <Route
             path="/assetinventory/*"
             element={
               <ErrorBoundary
@@ -202,18 +160,6 @@ export function AppRoutingSetup() {
                 fallback={<CrashError />}
               >
                 <AssetInventoryRoutingSetup />
-              </ErrorBoundary>
-            }
-          />
-
-          <Route
-            path="/csp-m/*"
-            element={
-              <ErrorBoundary
-                resetKey={location.pathname}
-                fallback={<CrashError />}
-              >
-                <CSMRoutingSetup />
               </ErrorBoundary>
             }
           />
@@ -231,18 +177,6 @@ export function AppRoutingSetup() {
           />
 
           <Route
-            path="/sca-ui/*"
-            element={
-              <ErrorBoundary
-                resetKey={location.pathname}
-                fallback={<CrashError />}
-              >
-                <ScaRoutingSetup />
-              </ErrorBoundary>
-            }
-          />
-
-          <Route
             path="/ai-agent-builder/*"
             element={
               <ErrorBoundary
@@ -253,19 +187,6 @@ export function AppRoutingSetup() {
               </ErrorBoundary>
             }
           />
-
-          <Route
-            path="/ui-sast/*"
-            element={
-              <ErrorBoundary
-                resetKey={location.pathname}
-                fallback={<CrashError />}
-              >
-                <SastRoutingSetup />
-              </ErrorBoundary>
-            }
-          />
-
 
           <Route
             path="/apt/*"

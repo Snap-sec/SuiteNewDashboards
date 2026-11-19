@@ -45,23 +45,13 @@ export function SidebarHeader() {
     "vm": "VM",
     "caim": "AIM",
     "casm": "ASM",
-    "vs": "VS",
     "vdp": "VDP",
-    "tm": "TM",
-    "threat-modeler": "TM",
     "admin": "Admin",
     "rr": "RR",
-    "was": "WAS",
     "demo": "Demo",
     "assetinventory": "AIM",
     "agent": "Agent",
-    "sca": "SCA",
-    "sca-ui": "SCA",
-    "sast": "SAST",
-    "ui-sast": "SAST",
     "automation": "Automation",
-    "csm": "CSPM",
-    "csp-m": "CSPM",
     "ai-agent-builder": "Agent Builder",
     "apt": "APT",
   }
@@ -72,31 +62,16 @@ export function SidebarHeader() {
     vm: '/vm',
     caim: '/caim',
     casm: '/casm',
-    csm: '/csp-m',
-    'csp-m': '/csp-m',
-    vs: '/vs',
     vdp: '/vdp',
-    tm: '/tm',
-    'threat-modeler': '/tm',
     admin: '/admin',
     rr: '/rr',
-    was: '/was',
     apt: '/apt',
     demo: '/demo',
     assetinventory: '/assetinventory',
-    sca: '/sca',
-    'sca-ui': '/sca',
-    sast: '/ui-sast',
-    'ui-sast': '/ui-sast',
     "ai-agent-builder": '/ai-agent-builder',
   };
 
   const logoMap = {
-    'csp-m': 'cspm',
-    csm: 'cspm',
-    sast: 'sast',
-    'ui-sast': 'sast',
-    'sca-ui': 'sca',
     "ai-agent-builder": 'workflow',
     apt: 'autopt',
     assetinventory: 'aim',
@@ -126,9 +101,7 @@ export function SidebarHeader() {
   const productNameDisplay =
     brandedTitles[segment] ||
     product?.name ||
-    (segment === 'ui-sast' || segment === 'sast'
-      ? 'Static Application Security Testing'
-      : segment === 'ai-agent-builder'
+    (segment === 'ai-agent-builder'
       ? 'AI Agent Builder'
       : segment === 'agent'
       ? 'Agent Fleet'

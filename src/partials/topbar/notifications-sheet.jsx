@@ -41,8 +41,6 @@ import VulnerabilityAssigned from './notifications/vm/vulnerability-assigned-not
 import VulnerabilityComment from './notifications/vm/vulnerability-comment-notification';
 import VmVulnerability from './notifications/vm/vulnerability-notification';
 import VulnerabilitySourceNotification from './notifications/vm/vulnerability-source-notification';
-import VsScan from './notifications/vs/vs-scan';
-import WasScanNotification from './notifications/was/was-scan-notification';
 import StrikeProjectNotification from './notifications/strike/strike-project-notification';
 import StrikeScanNotification from './notifications/strike/strike-scan-notification';
 import StrikeIntegrationNotification from './notifications/strike/strike-integration-notification';
@@ -180,11 +178,6 @@ function NotificationItem({ notification: rawNotification }) {
     return <VmVulnerability notification={notification} />;
   }
 
-  // Check if this event key is a vs.scan event
-  if (notification.event_key?.startsWith?.('vs.scan.')) {
-    return <VsScan notification={notification} />;
-  }
-
   // Check if this event key is an asm.scan event
   if (notification.event_key?.startsWith?.('asm.scan.')) {
     return <AsmScanNotification notification={notification} />;
@@ -197,11 +190,6 @@ function NotificationItem({ notification: rawNotification }) {
     notification.event_key?.startsWith?.('casm.rule.')
   ) {
     return <AsmRuleNotification notification={notification} />;
-  }
-
-  // Check if this event key is a was.scan event
-  if (notification.event_key?.startsWith?.('was.scan.')) {
-    return <WasScanNotification notification={notification} />;
   }
 
   // Check if this event key is a Strike (Auto Pentest) event
@@ -313,48 +301,6 @@ function NotificationItem({ notification: rawNotification }) {
     notification.event_key.startsWith?.('vm.vulnerability.escalation.rejected')
   ) {
     description = 'rejected escalation';
-  } else if (notification.event_key.startsWith?.('was.rule.create')) {
-    description = 'created new rule';
-  } else if (notification.event_key.startsWith?.('was.rule.update')) {
-    description = 'updated rule';
-  } else if (notification.event_key.startsWith?.('was.rule.delete')) {
-    description = 'deleted rule';
-  } else if (notification.event_key.startsWith?.('was.project.create')) {
-    description = 'created project';
-  } else if (notification.event_key.startsWith?.('was.project.update')) {
-    description = 'updated project';
-  } else if (notification.event_key.startsWith?.('was.project.delete')) {
-    description = 'deleted project';
-  } else if (notification.event_key === 'vs.adapter.create') {
-    description = adapterName ? 'installed adapter' : 'installed an adapter';
-  } else if (notification.event_key === 'vs.adapter.update') {
-    description = adapterName ? 'updated adapter' : 'updated an adapter';
-  } else if (notification.event_key === 'vs.adapter.delete') {
-    description = adapterName ? 'deleted adapter' : 'deleted an adapter';
-  // SCA events
-  } else if (notification.event_key === 'sca.report.queued') {
-    description = 'requested a report';
-  } else if (notification.event_key === 'sca.report.generated') {
-    description = 'generated report successfully';
-  } else if (notification.event_key === 'sca.report.failed') {
-    description = 'report generation failed';
-  } else if (notification.event_key === 'sca.adapter.configure') {
-    description = adapterName ? 'configured adapter' : 'configured an adapter';
-  } else if (notification.event_key === 'sca.scan.started') {
-    description = 'started a scan';
-  } else if (notification.event_key === 'sca.scan.completed') {
-    description = 'completed a scan';
-  } else if (notification.event_key === 'sca.scan.failed') {
-    description = 'scan failed';
-  // CSPM events
-  } else if (notification.event_key === 'cspm.adapter.configure') {
-    description = adapterName ? 'configured adapter' : 'configured an adapter';
-  } else if (notification.event_key === 'cspm.scan.started') {
-    description = 'started a cloud scan';
-  } else if (notification.event_key === 'cspm.scan.completed') {
-    description = 'completed a cloud scan';
-  } else if (notification.event_key === 'cspm.scan.failed') {
-    description = 'cloud scan failed';
   // VM Adapter events
   } else if (notification.event_key === 'vm.adapter.integrate') {
     description = adapterName ? 'integrated adapter' : 'integrated an adapter';
@@ -493,11 +439,7 @@ export function NotificationsSheet({ trigger }) {
   const ORIGIN_OPTIONS = [
     { value: 'vm', label: 'VM' },
     { value: 'asm', label: 'ASM' },
-    { value: 'vs', label: 'VS' },
     { value: 'aim', label: 'AIM' },
-    { value: 'apisec', label: 'WAS' },
-    { value: 'sca', label: 'SCA' },
-    { value: 'cspm', label: 'CSPM' },
     { value: 'strike', label: 'Strike' },
   ];
 

@@ -27,20 +27,6 @@ const products = [
         link: '/demo',
         locked: false,
     },
-    {
-        logo: 'vs.svg',
-        title: 'VS',
-        name: 'Vulnerability Scanner',
-        link: '/demo',
-        locked: false,
-    },
-    {
-        logo: 'was.svg',
-        title: 'WAS',
-        name: 'Web Application Scanner',
-        link: '/demo',
-        locked: true,
-    },
 ];
 
 const orbitStyles = `

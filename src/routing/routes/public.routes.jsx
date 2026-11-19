@@ -20,9 +20,6 @@ const FullRevalidationReport = React.lazy(() => import('@/pages/public/vm-report
 const ExecutiveReport = React.lazy(() => import('@/pages/public/vm-reports/executive-report/executive-report'));
 const AssetReport = React.lazy(() => import('@/pages/public/vm-reports/asset-report/asset-report'));
 const VulnerabilityReport = React.lazy(() => import('@/pages/public/vm-reports/vulnerability-report/vulnerability-report'));
-const CsmVulnerabilityReport = React.lazy(() => import('@/pages/public/csm-reports/vulnerability-report'));
-const ScanReport = React.lazy(() => import('@/pages/public/vs-reports/scan-report/scan-report'));
-const ProjectReport = React.lazy(() => import('@/pages/public/was-reports/project-report/project-report'));
 const AsmExecutiveReport = React.lazy(() => import('@/pages/public/asm-reports/executive/asm-exective-report'));
 const AsmExposureReport = React.lazy(() => import('@/pages/public/asm-reports/exposure/exposure-report'));
 const AutoPentestVulnReport = React.lazy(() => import('@/pages/public/apt-reports/vuln-report/auto-pentest-vuln-report'));
@@ -92,25 +89,6 @@ export function PublicRoutingSetup() {
                     <VulnerabilityReport />
                 </Suspense>
             } />
-
-            <Route path="/vm-reports/cspm-internal-assessment-vuln" element={
-                <Suspense fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}>
-                    <CsmVulnerabilityReport />
-                </Suspense>
-            } />
-
-            <Route path="/vs-reports/scan-report" element={
-                <Suspense fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}>
-                    <ScanReport />
-                </Suspense>
-            } />
-
-            <Route path="/was-reports/project-report" element={
-                <Suspense fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}>
-                    <ProjectReport />
-                </Suspense>
-            } />
-
 
             <Route path="/asm-reports/executive" element={
                 <Suspense fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}>

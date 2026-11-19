@@ -32,7 +32,6 @@ export function currentProduct() {
         "casm": "ASM",
         "caim": "AIM",
         "vs": "VS",
-        "threat-modeler": "TM",
     }
 
     return map[productPrefix] || `Unknown - ${productPrefix}`;

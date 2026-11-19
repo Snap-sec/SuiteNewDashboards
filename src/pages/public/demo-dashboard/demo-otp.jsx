@@ -100,7 +100,7 @@ const DemoOTP = () => {
         toast.success('Email verified successfully! Redirecting...');
         localStorage.removeItem('demoEmail');
         const nextPath = searchParams.get('next');
-        const validPaths = ['vm', 'casm', 'caim', 'vs', 'threat-modeler', 'rr'];
+        const validPaths = ['vm', 'casm', 'caim', 'rr'];
         if (nextPath && validPaths.includes(nextPath.toLowerCase())) {
           navigate(`/${nextPath.toLowerCase()}`);
         } else {

@@ -208,38 +208,6 @@ export const RR_SIDEBAR = [
   { title: 'Business Units', icon: Boxes, path: '/rr/business-units' },
 ];
 
-export const VS_SIDEBAR = [
-  { title: 'Dashboard', icon: LayoutGrid, path: '/vs' },
-
-  { heading: 'VULNERABILITY MANAGEMENT' },
-  { title: 'Vulnerabilities', icon: Bug, path: '/vs/vulns' },
-  {
-    title: 'Suppression Rules',
-    icon: ListCheck,
-    path: '/vs/suppression-rules',
-  },
-
-  { heading: 'ASSET MANAGEMENT' },
-  { title: 'Assets', icon: Boxes, path: '/vs/assets' },
-  { title: 'Groups', icon: Box, path: '/vs/groups' },
-
-  { heading: 'Agents And Deployments' },
-  { title: 'Agents', icon: Bot, path: '/vs/agents' },
-  { title: 'Deployment', icon: Bot, path: '/vs/deployment' },
-
-  { heading: 'SCAN MANAGEMENT' },
-  { title: 'Scans', icon: ScanSearch, path: '/vs/scans' },
-  { title: 'Scanners', icon: ScanQrCode, path: '/vs/scanners' },
-
-  { heading: 'Settings', roles: ['Admin'] },
-  {
-    title: 'Settings',
-    roles: ['Admin'],
-    icon: Settings,
-    path: '/vs/settings',
-  },
-];
-
 export const VDP_SIDEBAR = [
   { title: 'Dashboard', icon: LayoutGrid, path: '/vdp/dashboard' },
   { title: 'Policy', icon: ScrollText, path: '/vdp/policy' },
@@ -494,97 +462,11 @@ export const ASSET_INVENTORY_SIDEBAR = [
   },
 ];
 
-export const TM_SIDEBAR = [
-  { title: 'Dashboard', icon: LayoutGrid, path: '/threat-modeler' },
-  { title: 'Projects', icon: Layers, path: '/threat-modeler/projects' },
-  { title: 'Threats', icon: Logs, path: '/threat-modeler/threats' },
-  {
-    title: 'Requests',
-    icon: GitPullRequestDraft,
-    path: '/threat-modeler/requests',
-  },
-];
-
-export const WAS_SIDEBAR = [
-  { title: 'Dashboard', icon: LayoutGrid, path: '/was' },
-
-  { heading: 'APPLICATION MANAGEMENT' },
-  { title: 'Applications', icon: Layers, path: '/was/projects' },
-  { title: 'URL Catalog', icon: Link2, path: '/was/requests' },
-
-  { heading: 'VULNERABILITY MANAGEMENT' },
-  { title: 'Vulnerabilities', icon: Bug, path: '/was/vulnerablities' },
-
-  { heading: 'SCANNING & POLICIES' },
-  { title: 'Detection Rules', icon: ShieldEllipsis, path: '/was/rules' },
-  { title: 'Scan Profiles', icon: Radar, path: '/was/scan-profile' },
-
-  // { heading: 'SETTINGS' },
-  // {
-  //   title: 'Environments',
-  //   icon: BetweenHorizontalStart,
-  //   path: '/was/environments',
-  // },
-  // { title: 'Integrations', icon: Plug, path: '/was/integrations' },
-];
-
 export const AGENT_SIDEBAR = [
   { title: 'Dashboard', icon: LayoutDashboard, path: '/agent' },
   { title: 'Agent Inventory', icon: Bot, path: '/agent/inventory' },
   { title: 'Deployment', icon: Rocket, path: '/agent/deployment' },
   { title: 'Settings', icon: Settings, path: '/agent/settings' },
-];
-
-export const SCA_SIDEBAR = [
-  { title: 'Dashboard', icon: LayoutGrid, path: '/sca-ui' },
-
-  { heading: 'APPLICATION & DEPENDENCIES' },
-  { title: 'Projects', icon: Layers, path: '/sca-ui/projects' },
-  { title: 'Dependencies', icon: Boxes, path: '/sca-ui/dependencies' },
-  { title: 'Container Images', icon: Box, path: '/sca-ui/container-images' },
-
-  { heading: 'VULNERABILITIES' },
-  { title: 'Vulnerabilities', icon: Bug, path: '/sca-ui/vulnerabilities' },
-  { title: 'Action Plan', icon: ListCheck, path: '/sca-ui/action-plan' },
-
-  { heading: 'SCANNING & POLICIES' },
-  { title: 'Scans', icon: ScanSearch, path: '/sca-ui/scans' },
-
-  { heading: 'REPORTS & INTEGRATIONS' },
-  { title: 'Reports', icon: FileText, path: '/sca-ui/reports' },
-  { title: 'Integrations', icon: Plug, path: '/sca-ui/integrations' },
-  { title: 'Settings', icon: Settings, path: '/sca-ui/settings' },
-]
-
-export const SAST_SIDEBAR = [
-  { title: 'Dashboard', icon: LayoutGrid, path: '/ui-sast' },
-
-  { heading: 'APPLICATION & DEPENDENCIES' },
-  { title: 'Projects', icon: Layers, path: '/ui-sast/projects' },
-
-  { heading: 'VULNERABILITIES' },
-  { title: 'Vulnerabilities', icon: Bug, path: '/ui-sast/vulnerabilities' },
-
-  { heading: 'SCANNING & POLICIES' },
-  { title: 'Scans', icon: ScanSearch, path: '/ui-sast/scans' },
-
-  { heading: 'REPORTS & INTEGRATIONS' },
-  { title: 'Reports', icon: FileText, path: '/ui-sast/reports' },
-  { title: 'Integrations', icon: Plug, path: '/ui-sast/integrations' },
-  { title: 'Settings', icon: Settings, path: '/ui-sast/settings' },
-];
-
-export const CSM_SIDEBAR = [
-  { title: 'Dashboard', icon: LayoutGrid, path: '/csp-m' },
-  { title: 'Environments', icon: Layers, path: '/csp-m/accounts' },
-
-  { heading: 'Vulnerabilities & Scans' },
-  { title: 'Vulnerabilities', icon: Bug, path: '/csp-m/vulnerabilities' },
-  { title: 'Scans', icon: ScanSearch, path: '/csp-m/scans' },
-
-  { heading: 'Integrations & Reports' },
-  { title: 'Reports', icon: FileText, path: '/csp-m/reports' },
-  { title: 'Integrations', icon: PlugZap, path: '/csp-m/integrations' },
 ];
 
 export const AW_SIDEBAR = [
@@ -660,7 +542,6 @@ export const APT_SIDEBAR = [
 // works on path
 export const PRODUCT_TO_MENU = {
   vm: VM_SIDEBAR,
-  vs: VS_SIDEBAR,
   aim: AIM_SIDEBAR,
   caim: AIM_SIDEBAR,
   assetinventory: ASSET_INVENTORY_SIDEBAR,
@@ -668,23 +549,15 @@ export const PRODUCT_TO_MENU = {
   casm: ASM_SIDEBAR,
   vdp: VDP_SIDEBAR,
   admin: ADMIN_SIDEBAR,
-  tm: TM_SIDEBAR,
-  'threat-modeler': TM_SIDEBAR,
   rr: RR_SIDEBAR,
-  was: WAS_SIDEBAR,
   demo: DEMO_SIDEBAR,
   agent: AGENT_SIDEBAR,
-  sca: SCA_SIDEBAR,
-  'sca-ui': SCA_SIDEBAR,
-  'ui-sast': SAST_SIDEBAR,
-  'csp-m': CSM_SIDEBAR,
   "ai-agent-builder": AW_SIDEBAR,
   "apt": APT_SIDEBAR,
 };
 
 // ----------- PRODUCT WISE TOP BAR ------------------- //
 export const VM_TOPBAR = [{ title: 'Dashboard', path: '/vm' }];
-export const VS_TOPBAR = [{ title: 'Dashboard', path: '/home' }];
 export const VDP_TOPBAR = [{ title: 'Dashboard', path: '/home' }];
 export const ASM_TOPBAR = [{ title: 'Dashboard', path: '/home' }];
 export const AIM_TOPBAR = [{ title: 'Dashboard', path: '/home' }];

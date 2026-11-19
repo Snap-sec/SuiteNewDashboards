@@ -17,11 +17,6 @@ const CANONICAL_PRODUCTS = [
   { id: 'VM', name: 'VM', label: 'Vulnerability Management' },
   { id: 'ASM', name: 'ASM', label: 'Attack Surface Management' },
   { id: 'AIM', name: 'AIM', label: 'Asset Inventory Management' },
-  { id: 'VS', name: 'VS', label: 'Vulnerability Scanner' },
-  { id: 'WAS', name: 'WAS', label: 'Web Application Scanner' },
-  { id: 'SCA', name: 'SCA', label: 'Software Composition Analysis' },
-  { id: 'SAST', name: 'SAST', label: 'Static Application Security Testing' },
-  { id: 'CSPM', name: 'CSPM', label: 'Cloud Security Management' },
 ];
 
 export function MembersTab({ orgId, products }) {

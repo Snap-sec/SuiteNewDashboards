@@ -30,13 +30,8 @@ const Notifications = () => {
   const origins = [
     { label: 'All', value: 'all' },
     { label: 'VM', value: 'vm' },
-    { label: 'WAS', value: 'apisec' },
     { label: 'AIM', value: 'aim' },
     { label: 'ASM', value: 'asm' },
-    { label: 'VS', value: 'vs' },
-    { label: 'SCA', value: 'sca' },
-    { label: 'CSPM', value: 'cspm' },
-    { label: 'TM', value: 'tm' },
     { label: 'Strike', value: 'strike' },
   ];
   const [isSwitchOn, setIsSwitchOn] = useState(false);

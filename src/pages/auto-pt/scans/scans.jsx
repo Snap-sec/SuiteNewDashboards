@@ -9,7 +9,6 @@ import ApiErrorHandler from '@/components/common/api-error-handler';
 import { EmptyScreen } from '@/components/common/empty-screen';
 import AuthorityGuard from '@/components/custom/authority-guard/AuthorityGuard';
 import PageHeading from '@/components/custom/page-heading';
-import CreateScanModel from './components/modals/create-scan';
 import ScansTable from './components/tables/scans-table';
 import useStore from './store';
 
@@ -117,7 +116,11 @@ const Scans = () => {
         <PageHeading title="Scans" description="View and manage security scans, execution status, and history." />
 
         <AuthorityGuard forbidRoles={['Auditor']}>
-          <CreateScanModel supportedFrameworks={scansData?.supportedComplianceFrameworks || []} />
+          <Button asChild size="sm">
+            <Link to="/apt/pentests/create">
+              <Plus className="size-4 mr-1.5" /> Create New Scan
+            </Link>
+          </Button>
         </AuthorityGuard>
       </div>
 

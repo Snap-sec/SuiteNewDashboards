@@ -20,27 +20,6 @@ const PRODUCTS = [
     name: 'AssetIQ',
     link: '/assetinventory',
   },
-  // {
-  //   logo: 'vs.svg',
-  //   id: 'VS',
-  //   title: 'VS',
-  //   name: 'Vulnerability Scanner',
-  //   link: '/vs',
-  // },
-  // {
-  //   logo: 'tm.svg',
-  //   id: 'TM',
-  //   title: 'TM',
-  //   name: 'Threat Modeler',
-  //   link: '/threat-modeler',
-  // },
-  // {
-  //   logo: 'was.svg',
-  //   id: 'WAS',
-  //   title: 'WAS',
-  //   name: 'Web Application Scanner',
-  //   link: '/was',
-  // },
   {
     logo: 'autopt.svg',
     id: 'APT',
@@ -48,34 +27,6 @@ const PRODUCTS = [
     name: 'Strike',
     link: '/apt',
   },
-  // {
-  //   logo: 'sca.svg',
-  //   id: 'SCA',
-  //   title: 'SCA',
-  //   name: 'Software Composition Analysis',
-  //   link: '/sca-ui',
-  // },
-  // {
-  //   logo: 'sast.svg',
-  //   id: 'SAST',
-  //   title: 'SAST',
-  //   name: 'Static Application Security Testing',
-  //   link: '/ui-sast',
-  // },
-  // {
-  //   logo: 'cspm.svg',
-  //   id: 'CSPM',
-  //   title: 'CSM',
-  //   name: 'Cloud Security Management',
-  //   link: '/csp-m',
-  // },
-  // {
-  //   logo: 'agent.svg',
-  //   id: 'AW',
-  //   title: 'AW',
-  //   name: 'Automation Workflow',
-  //   link: '/automation',
-  // }
 ];
 
 

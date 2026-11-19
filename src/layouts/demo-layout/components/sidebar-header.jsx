@@ -41,8 +41,6 @@ export function SidebarHeader() {
     "csp-m": "Cloud Security Management",
     "vs": "Vulnerability Scanner",
     "vdp": "Vulnerability Disclosure Programme",
-    "tm": "Threat Management",
-    "threat-modeler": "Threat Management",
     "admin": "Admin",
     "rr": "Risk Register",
     "api-sec": "API Sec",
