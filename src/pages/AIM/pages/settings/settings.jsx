@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAuth } from '@/auth/context/auth-context';
 import { Helmet } from 'react-helmet';
 import { useSearchParams } from 'react-router-dom';
-import PageHeading from '@/components/custom/page-heading';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AdapterSettings from './components/adapter-settings';
 import CustomFieldsSettings from './components/custom-fields';
 import DefaultOwnership from './components/default-ownership';
@@ -78,15 +78,27 @@ const Settings = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 space-y-4">
       <Helmet>
         <title>AssetIQ | {activeSection.title}</title>
       </Helmet>
 
-      <PageHeading
-        title={activeSection.title}
-        description={activeSection.description}
-      />
+      <Tabs
+        value={currentTab}
+        onValueChange={(tab) => setSearchParams({ tab })}
+      >
+        <TabsList
+          variant="line"
+          size="md"
+          className="border-b w-full justify-start overflow-x-auto gap-6"
+        >
+          {Object.entries(SETTINGS_SECTIONS).map(([key, section]) => (
+            <TabsTrigger key={key} value={key}>
+              {section.title}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
       <div className="mt-4">{renderContent()}</div>
     </div>

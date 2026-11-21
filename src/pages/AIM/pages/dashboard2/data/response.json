@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "company": "Northwind Labs",
+    "environment": "All environments",
+    "updatedLabel": "Updated 4 min ago",
+    "lastReconciled": "15 minutes"
+  },
+  "metrics": {
+    "totalAssets": 12846,
+    "managed": 11698,
+    "unowned": 648,
+    "addedThisWeek": 312
+  },
+  "estate": {
+    "totalAssets": 12846,
+    "addedThisWeek": 312,
+    "deltaPercent": "2.5% since Sep 1",
+    "growthInsight": "58% of new assets arrive through cloud and endpoint discovery.",
+    "weeklyDiscovery": [
+      { "label": "Aug 31", "value": 148 },
+      { "label": "Sep 7", "value": 162 },
+      { "label": "Sep 14", "value": 134 },
+      { "label": "Sep 21", "value": 176 },
+      { "label": "Sep 28", "value": 201 },
+      { "label": "Oct 5", "value": 188 },
+      { "label": "Oct 12", "value": 242 },
+      { "label": "Oct 19", "value": 228 },
+      { "label": "Oct 26", "value": 264 },
+      { "label": "Nov 2", "value": 287 },
+      { "label": "Nov 9", "value": 301 },
+      { "label": "Nov 16", "value": 312 }
+    ],
+    "scale": 360,
+    "ticks": [300, 150, 0],
+    "lifecycle": {
+      "active": { "count": 10924, "percent": 85.04 },
+      "idle": { "count": 1112, "percent": 8.66 },
+      "dormant": { "count": 552, "percent": 4.30 },
+      "retired": { "count": 258, "percent": 2.00 }
+    }
+  },
+  "coverage": {
+    "percentage": 96.4,
+    "observed": 12846,
+    "expected": 13326,
+    "freshness": "93.8% · observed in the last 24 hours",
+    "context": [
+      { "name": "Ownership", "percent": 95.0, "isGap": false },
+      { "name": "Criticality", "percent": 91.4, "isGap": false },
+      { "name": "Application", "percent": 87.8, "isGap": true },
+      { "name": "Software", "percent": 92.6, "isGap": false },
+      { "name": "Location", "percent": 98.1, "isGap": false }
+    ]
+  },
+  "ownership": {
+    "coveredPercent": 95.0,
+    "assetsWithOwner": 12198,
+    "teams": [
+      { "name": "Platform", "count": 4128, "percent": 100 },
+      { "name": "Corporate IT", "count": 3842, "percent": 93.1 },
+      { "name": "Customer Engineering", "count": 2214, "percent": 53.6 },
+      { "name": "Data & Analytics", "count": 1406, "percent": 34.1 },
+      { "name": "Security", "count": 608, "percent": 14.7 }
+    ],
+    "unassigned": {
+      "count": 648,
+      "title": "648 assets unassigned",
+      "description": "No accountable team in AD or CMDB",
+      "badge": "Open"
+    }
+  },
+  "categories": {
+    "totalClasses": 8,
+    "unmanagedNotice": "1,148 assets are unmanaged · Compute, endpoints, and network hold 68% of the gap.",
+    "list": [
+      { "name": "Compute", "type": "server", "count": 3412, "share": "26.6%", "percent": 100 },
+      { "name": "Endpoints", "type": "laptop", "count": 3104, "share": "24.2%", "percent": 90.97 },
+      { "name": "Applications", "type": "app", "count": 1846, "share": "14.4%", "percent": 54.10 },
+      { "name": "Databases", "type": "database", "count": 1225, "share": "9.5%", "percent": 35.90 },
+      { "name": "Identities", "type": "identity", "count": 1134, "share": "8.8%", "percent": 33.24 },
+      { "name": "Network", "type": "network", "count": 1024, "share": "8.0%", "percent": 30.01 },
+      { "name": "Containers", "type": "container", "count": 846, "share": "6.6%", "percent": 24.80 },
+      { "name": "Storage", "type": "storage", "count": 255, "share": "2.0%", "percent": 7.47 }
+    ]
+  },
+  "sources": {
+    "connected": 18,
+    "healthy": 17,
+    "delayed": 1,
+    "healthyPercent": 94.4,
+    "delayedPercent": 5.6,
+    "list": [
+      { "name": "AWS Cloud", "badge": "AWS", "count": 4120, "sync": "2m ago", "delayed": false },
+      { "name": "Microsoft 365 & Azure", "badge": "MS", "count": 3140, "sync": "4m ago", "delayed": false },
+      { "name": "Endpoint agent", "badge": "EA", "count": 2780, "sync": "1m ago", "delayed": false },
+      { "name": "VMware vCenter", "badge": "VM", "count": 1180, "sync": "12m ago", "delayed": true },
+      { "name": "Kubernetes", "badge": "K8S", "count": 820, "sync": "6m ago", "delayed": false },
+      { "name": "Active Directory", "badge": "AD", "count": 806, "sync": "3m ago", "delayed": false }
+    ],
+    "lastDiscovery": "4 min ago",
+    "nextSweep": "in 58s"
+  },
+  "recentlyDiscovered": [
+    {
+      "id": "cmp-8241",
+      "name": "web-prod-04",
+      "type": "Compute",
+      "source": "AWS Cloud",
+      "owner": "Platform",
+      "state": "Active",
+      "added": "2m ago",
+      "flags": []
+    },
+    {
+      "id": "ctr-4418",
+      "name": "k8s-api-7f9c",
+      "type": "Container",
+      "source": "Kubernetes",
+      "owner": "Platform",
+      "state": "Active",
+      "added": "6m ago",
+      "flags": []
+    },
+    {
+      "id": "db-2190",
+      "name": "finance-db-02",
+      "type": "Database",
+      "source": "VMware vCenter",
+      "owner": "Data & Analytics",
+      "state": "Idle",
+      "added": "12m ago",
+      "flags": ["review"],
+      "reviewMsg": "Needs review: missing criticality"
+    },
+    {
+      "id": "ep-1842",
+      "name": "macbook-1842",
+      "type": "Endpoint",
+      "source": "Endpoint agent",
+      "owner": "Corporate IT",
+      "state": "Active",
+      "added": "18m ago",
+      "flags": []
+    },
+    {
+      "id": "app-8871",
+      "name": "sharepoint-finance",
+      "type": "Application",
+      "source": "Microsoft 365",
+      "owner": "Corporate IT",
+      "state": "Active",
+      "added": "27m ago",
+      "flags": []
+    },
+    {
+      "id": "idn-6024",
+      "name": "svc-reporting",
+      "type": "Identity",
+      "source": "Active Directory",
+      "owner": "Data & Analytics",
+      "state": "Active",
+      "added": "41m ago",
+      "flags": ["review"],
+      "reviewMsg": "Needs review: software record incomplete"
+    },
+    {
+      "id": "cmp-1930",
+      "name": "jump-host-02",
+      "type": "Compute",
+      "source": "VMware vCenter",
+      "owner": "Unassigned",
+      "state": "Dormant",
+      "added": "1h ago",
+      "flags": ["review", "unowned"],
+      "reviewMsg": "Needs review: unowned and stale"
+    },
+    {
+      "id": "net-5512",
+      "name": "ap-accounting-14",
+      "type": "Network device",
+      "source": "Network scan",
+      "owner": "Unassigned",
+      "state": "Active",
+      "added": "2h ago",
+      "flags": ["review", "unowned"],
+      "reviewMsg": "Needs review: missing criticality"
+    }
+  ],
+  "hygiene": {
+    "openFlags": 1382,
+    "checksCount": 4,
+    "checks": [
+      {
+        "id": "unowned",
+        "title": "Unowned assets",
+        "description": "No accountable team in AD or CMDB",
+        "count": 648,
+        "type": "owner"
+      },
+      {
+        "id": "criticality",
+        "title": "Missing criticality",
+        "description": "No business criticality on record",
+        "count": 236,
+        "type": "classify"
+      },
+      {
+        "id": "stale",
+        "title": "Stale records",
+        "description": "No change observed in 30+ days",
+        "count": 386,
+        "type": "stale"
+      },
+      {
+        "id": "duplicate",
+        "title": "Duplicate candidates",
+        "description": "Awaiting merge review",
+        "count": 112,
+        "type": "duplicate"
+      }
+    ],
+    "footer": "Next hygiene pass at 02:00 UTC · rules run nightly"
+  }
+}
+

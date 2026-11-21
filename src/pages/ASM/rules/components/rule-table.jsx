@@ -159,9 +159,9 @@ const RuleTable = ({
         },
       },
       {
-        accessorKey: 'goal',
+        accessorKey: 'confidence',
         header: ({ column }) => (
-          <DataGridColumnHeader title="Goal" column={column} />
+          <DataGridColumnHeader title="Confidence" column={column} />
         ),
         cell: ({ row }) => {
           const isSafe = row.original?.risk === 'none';

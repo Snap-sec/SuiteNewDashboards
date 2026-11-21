@@ -10,7 +10,7 @@ import AssetsList from '../components/assets-list';
 import useGeneralStore from '../store';
 import useDecomissionedStore from './store';
 
-function Decomissioned() {
+function Decomissioned({ hideHeading = false }) {
   const pagination = useDecomissionedStore((state) => state.pagination);
   const sorting = useDecomissionedStore((state) => state.sorting);
   const filters = useDecomissionedStore((state) => state.filters);
@@ -27,7 +27,7 @@ function Decomissioned() {
 
   useEffect(() => {
     setPagination(() => ({ pageIndex: 0, pageSize: 10 }));
-  }, [searchQuery, filters]);
+  }, [searchQuery, filters, setPagination]);
 
   const tableDetails = {
     pagination,
@@ -78,17 +78,21 @@ function Decomissioned() {
   if (isError) return <ApiErrorHandler error={error} />;
 
   return (
-    <div className="p-4">
-      <Helmet>
-        <title>AssetIQ | Decommissioned</title>
-      </Helmet>
+    <div className={hideHeading ? '' : 'p-4'}>
+      {!hideHeading && (
+        <>
+          <Helmet>
+            <title>AssetIQ | Decommissioned</title>
+          </Helmet>
 
-      <PageHeading
-        title="Decommissioned Inventory"
-        description="Review and manage assets that have been decommissioned from your inventory."
-      />
+          <PageHeading
+            title="Decommissioned Inventory"
+            description="Review and manage assets that have been decommissioned from your inventory."
+          />
+        </>
+      )}
 
-      <div className="mt-4">
+      <div className={hideHeading ? '' : 'mt-4'}>
         {Object.keys(rowSelection || {}).length > 1 && <BulkUpdate />}
         <AssetsList
           assetsData={assetsData || []}

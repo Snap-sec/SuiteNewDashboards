@@ -7,6 +7,18 @@ import AuthorityGuard from '../../components/custom/authority-guard/AuthorityGua
 const Dashboard = React.lazy(
   () => import('@/pages/AIM/pages/dashboard/dashboard'),
 );
+const Dashboard2 = React.lazy(
+  () => import('@/pages/AIM/pages/dashboard2'),
+);
+const UnifiedAssetInventory = React.lazy(
+  () => import('@/pages/AIM/pages/assets-pages/unified-inventory'),
+);
+const ExpiredAssets = React.lazy(
+  () => import('@/pages/AIM/pages/assets-pages/expired-assets'),
+);
+const SensorsPage = React.lazy(
+  () => import('@/pages/AIM/pages/sensors'),
+);
 const Assets = React.lazy(
   () => import('@/pages/AIM/pages/assets-pages/assets/assets'),
 );
@@ -173,7 +185,84 @@ export function AssetInventoryRoutingSetup() {
         }
       />
 
+      <Route
+        path="/dashboard2"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <Dashboard2 />
+          </Suspense>
+        }
+      />
 
+
+
+      <Route
+        path="/assets/retired"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <ExpiredAssets />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/assets/retired/"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <ExpiredAssets />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/retired-assets"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <ExpiredAssets />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/assets/expired"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <ExpiredAssets />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/assets/expired/"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <ExpiredAssets />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/expired-assets"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <ExpiredAssets />
+          </Suspense>
+        }
+      />
 
       <Route
         path="/assets/decomissioned"
@@ -181,7 +270,7 @@ export function AssetInventoryRoutingSetup() {
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <Decomissioned />
+            <ExpiredAssets defaultTab="decommissioned" />
           </Suspense>
         }
       />
@@ -192,7 +281,7 @@ export function AssetInventoryRoutingSetup() {
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <Staged />
+            <ExpiredAssets defaultTab="staged" />
           </Suspense>
         }
       />
@@ -200,12 +289,45 @@ export function AssetInventoryRoutingSetup() {
 
 
       <Route
+        path="/sensors"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <SensorsPage />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/sensors/"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <SensorsPage />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/sensor-management"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <SensorsPage />
+          </Suspense>
+        }
+      />
+
+      <Route
         path="/agent-settings"
         element={
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <AgentSettingsPage />
+            <SensorsPage defaultTab="deployment" />
           </Suspense>
         }
       />
@@ -216,7 +338,7 @@ export function AssetInventoryRoutingSetup() {
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <AgentListPage />
+            <SensorsPage defaultTab="inventory" />
           </Suspense>
         }
       />
@@ -398,12 +520,23 @@ export function AssetInventoryRoutingSetup() {
       />
 
       <Route
+        path="/assets"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <UnifiedAssetInventory />
+          </Suspense>
+        }
+      />
+
+      <Route
         path="/assets/"
         element={
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <Dashboard />
+            <UnifiedAssetInventory />
           </Suspense>
         }
       />

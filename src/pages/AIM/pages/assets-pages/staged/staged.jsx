@@ -9,7 +9,7 @@ import AssetsList from '../components/assets-list';
 import useGeneralStore from '../store';
 import useStagedStore from './store';
 
-function Staged() {
+function Staged({ hideHeading = false }) {
   const pagination = useStagedStore((state) => state.pagination);
   const sorting = useStagedStore((state) => state.sorting);
   const filters = useStagedStore((state) => state.filters);
@@ -24,7 +24,7 @@ function Staged() {
 
   useEffect(() => {
     setPagination(() => ({ pageIndex: 0, pageSize: 10 }));
-  }, [searchQuery, filters]);
+  }, [searchQuery, filters, setPagination]);
 
   const tableDetails = {
     pagination,
@@ -42,7 +42,6 @@ function Staged() {
     data: assetsData,
     isLoading: assetsLoading,
     isFetching: assetsFetching,
-    error,
     isError,
   } = useGetAimAssetsQuery({
     page: pagination.pageIndex + 1,
@@ -75,17 +74,21 @@ function Staged() {
   // if (isError) return <ApiErrorHandler error={error} />;
 
   return (
-    <div className="p-4">
-      <Helmet>
-        <title>AssetIQ | Staged</title>
-      </Helmet>
+    <div className={hideHeading ? '' : 'p-4'}>
+      {!hideHeading && (
+        <>
+          <Helmet>
+            <title>AssetIQ | Staged</title>
+          </Helmet>
 
-      <PageHeading
-        title="Staged Inventory"
-        description="Review and manage assets currently staged for inventory processing."
-      />
+          <PageHeading
+            title="Staged Inventory"
+            description="Review and manage assets currently staged for inventory processing."
+          />
+        </>
+      )}
 
-      <div className="mt-4">
+      <div className={hideHeading ? '' : 'mt-4'}>
         {/* {Object.keys(rowSelection || {}).length > 1 && <BulkUpdate />} */}
         <AssetsList
           assetsData={assetsData || []}

@@ -20,19 +20,17 @@ import {
 import PageHeading from '@/components/custom/page-heading';
 import { CodeBlock } from './components/code-block';
 import { useGetAgentSettingsQuery } from '@/services/agent/agentApi';
-import appConfig from '@/config/appConfig';
 import { Skeleton } from '@/components/ui/skeleton';
 import ApiErrorHandler from '../../../../components/common/api-error-handler';
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-function AgentSettingsPage() {
+function AgentSettingsPage({ hideHeading = false }) {
   const [selectedOS, setSelectedOS] = useState('linux');
   const [copiedField, setCopiedField] = useState(null);
 
   const { data: settingsResponse, isLoading, isError, error } = useGetAgentSettingsQuery();
   const installCommands = settingsResponse?.data || {};
-  const configuration = settingsResponse?.configuration || {};
 
   const currentOS = installCommands[selectedOS] || {
     prerequisites: [],
@@ -50,15 +48,19 @@ function AgentSettingsPage() {
   }
 
   return (
-    <div className="p-4 flex flex-col gap-5">
-      <Helmet>
-        <title>AssetIQ | Settings</title>
-      </Helmet>
+    <div className={hideHeading ? "flex flex-col gap-5" : "p-4 flex flex-col gap-5"}>
+      {!hideHeading && (
+        <>
+          <Helmet>
+            <title>AssetIQ | Settings</title>
+          </Helmet>
 
-      <PageHeading
-        title="Agent Deployment"
-        description="Manage agent deployment, installation, and service commands."
-      />
+          <PageHeading
+            title="Agent Deployment"
+            description="Manage agent deployment, installation, and service commands."
+          />
+        </>
+      )}
 
       {isLoading ? (
         <>

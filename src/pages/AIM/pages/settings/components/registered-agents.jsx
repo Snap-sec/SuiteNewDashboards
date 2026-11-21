@@ -15,7 +15,7 @@ import Cards from '../../dashboard/components/cards';
 import AuthorityGuard from '@/components/custom/authority-guard/AuthorityGuard';
 import ApiErrorHandler from '../../../../../components/common/api-error-handler';
 
-const RegisteredAgents = () => {
+const RegisteredAgents = ({ hideHeading = false }) => {
   const [search, setSearch] = useState('');
   const [sorting, setSorting] = useState([]);
   const debouncedSearch = useDebounce(search, 400);
@@ -39,9 +39,11 @@ const RegisteredAgents = () => {
     sort: sorting[0]?.id,
     sortOrder: sorting[0]?.desc ? 'desc' : 'asc',
   });
-  const agents = Array.isArray(agentsData?.data)
-    ? agentsData.data
-    : (agentsData?.data?.agents || []);
+  const agents = useMemo(() => {
+    if (Array.isArray(agentsData?.data)) return agentsData.data;
+    if (agentsData?.data?.agents && Array.isArray(agentsData.data.agents)) return agentsData.data.agents;
+    return [];
+  }, [agentsData]);
   const metrics = agentsData?.data?.metrics || agentsData?.metrics;
 
   const getStatusVariant = (status) => {
@@ -71,9 +73,6 @@ const RegisteredAgents = () => {
     ).length;
     const outdated = agents.filter(
       (a) => a.status?.toLowerCase() === 'outdated',
-    ).length;
-    const offline = agents.filter(
-      (a) => a.status?.toLowerCase() === 'offline',
     ).length;
 
     return [
@@ -217,10 +216,18 @@ const RegisteredAgents = () => {
 
   if (!isError && !isLoading && !isFetching && agents.length === 0 && !debouncedSearch) {
     return (
-      <div className="p-4">
-        <Helmet>
-          <title>AssetIQ | Registered Agents</title>
-        </Helmet>
+      <div className={hideHeading ? '' : 'p-4'}>
+        {!hideHeading && (
+          <>
+            <Helmet>
+              <title>AssetIQ | Registered Agents</title>
+            </Helmet>
+            <PageHeading
+              title="Registered Agents"
+              description="View and manage registered agents reporting assets to your inventory."
+            />
+          </>
+        )}
         <EmptyScreen
           title="No Agents Registered"
           subTitle="No agents have been registered yet. Install and connect an agent to start ingesting asset data."
@@ -234,15 +241,19 @@ const RegisteredAgents = () => {
   }
 
   return (
-    <div className="p-4">
-      <Helmet>
-        <title>AssetIQ | Registered Agents</title>
-      </Helmet>
+    <div className={hideHeading ? '' : 'p-4'}>
+      {!hideHeading && (
+        <>
+          <Helmet>
+            <title>AssetIQ | Registered Agents</title>
+          </Helmet>
 
-      <PageHeading
-        title="Registered Agents"
-        description="View and manage registered agents reporting assets to your inventory."
-      />
+          <PageHeading
+            title="Registered Agents"
+            description="View and manage registered agents reporting assets to your inventory."
+          />
+        </>
+      )}
       <div className="mb-4">
         <Cards customItems={agentStats} isLoading={isLoading} />
       </div>

@@ -1,4 +1,3 @@
-import { icon } from 'leaflet';
 import { AlertCircle, Award, Badge, BadgeAlert, Ban, Bell, BetweenHorizontalStart, Bitcoin, Bolt, Book, Bot, BotIcon, Box, Boxes, BrainCog, Briefcase, Bug, BugPlay, Building, Building2, CalendarCheck, CalendarClock, CalendarRange, Captions, ChartCandlestick, ChartPie, CheckCircle, ClipboardCheck, Clock, CloudAlert, Code, Code2Icon, CodeIcon, Codepen, CodeSquare, Coffee, Crosshair, File as DocumentIcon, Euro, Eye, File, FileBarChart, FileQuestion, FileText, Flag, FolderOutput, Ghost, Gift, GitPullRequestDraft, Globe, Grid, Group, HatGlasses, Heart, HelpCircle, History, Kanban, Key, Layers, Layout, LayoutDashboard, LayoutGrid, LifeBuoy, Link, Link2, List, ListCheck, ListOrdered, LockIcon, Logs, MessageSquare, Monitor, MonitorCloud, Network, NotebookText, Users as PeopleIcon, PlayCircle, Plug, PlugZap, Radar, Rocket, ScanEye, ScanQrCode, ScanSearch, ScrollText, Search, Server, Settings, Shapes, Share2, Shield, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldHalf, ShieldMinus, ShieldOff, ShieldUser, ShoppingCart, SlidersHorizontal, Sparkles, SquareChartGantt, SquareMousePointer, SquarePen, Star, Tags, Target, Theater, ThumbsUp, TrendingUp, TriangleAlert, Unplug, UserCheck, UserCircle, Users, Workflow, Briefcase as WorkIcon, Zap } from 'lucide-react';
 import { BlockersCountBadge } from './sidebar-custom-comps-index';
 
@@ -348,43 +347,12 @@ export const AIM_SIDEBAR = [
 
 export const ASSET_INVENTORY_SIDEBAR = [
   { title: 'Dashboard', icon: LayoutGrid, path: '/assetinventory' },
+  { title: 'Dashboard 2', icon: LayoutGrid, path: '/assetinventory/dashboard2' },
   { heading: 'Inventory Management' },
   {
     title: 'Assets Inventory',
     icon: ChartCandlestick,
-    children: [
-      {
-        title: 'Advanced Search',
-        path: '/assetinventory/advance-search',
-      },
-      { title: 'Subdomains', path: '/assetinventory/assets/subdomains' },
-      { title: 'APIs', path: '/assetinventory/assets/apis' },
-      { title: 'IP Addresses', path: '/assetinventory/assets/ips' },
-      // { title: 'DNS Records', path: '/assetinventory/assets/dns-records' },
-      { title: 'Repositories', path: '/assetinventory/assets/repositories' },
-      { title: 'Certificates', path: '/assetinventory/assets/certificates' },
-      { title: 'Employees', path: '/assetinventory/assets/employees' },
-      { title: 'Applications', path: '/assetinventory/assets/applications' },
-      { title: 'Workstations', path: '/assetinventory/assets/workstation' },
-      { title: 'Servers', path: '/assetinventory/assets/servers' },
-      { title: 'Registries', path: '/assetinventory/assets/registries' },
-      {
-        title: 'Object Storages',
-        path: '/assetinventory/assets/object-storage',
-      },
-      {
-        title: 'Business Units',
-        path: '/assetinventory/business-units',
-      },
-      {
-        title: 'Licensing',
-        path: '/assetinventory/assets/licenses',
-      },
-      {
-        title: 'Vendors',
-        path: '/assetinventory/assets/vendors',
-      },
-    ],
+    path: '/assetinventory/assets',
   },
 
   {
@@ -394,20 +362,9 @@ export const ASSET_INVENTORY_SIDEBAR = [
   },
 
   {
-    title: 'Lifecycle Management',
+    title: 'Retired Assets',
     icon: ShieldMinus,
-    children: [
-      { title: 'Staged', path: '/assetinventory/assets/staged' },
-      { title: 'Decommissioned', path: '/assetinventory/assets/decomissioned' },
-    ],
-  },
-
-  { heading: 'Sensor Management' },
-  { title: 'Sensor Inventory', icon: Bot, path: '/assetinventory/agent-list' },
-  {
-    title: 'Sensor Deployment',
-    icon: Settings,
-    path: '/assetinventory/agent-settings',
+    path: '/assetinventory/assets/retired',
   },
 
   { heading: 'Automations and Reports' },
@@ -421,35 +378,15 @@ export const ASSET_INVENTORY_SIDEBAR = [
   { heading: 'Integrations and Settings' },
   { title: 'Integrations', icon: Unplug, path: '/assetinventory/adapters' },
   {
+    title: 'Sensor Management',
+    icon: Bot,
+    path: '/assetinventory/sensors',
+  },
+  {
     title: 'Settings',
     icon: Settings,
     roles: ['Admin', 'Manager'],
-    children: [
-      {
-        title: 'Adapter Settings',
-        path: '/assetinventory/settings?tab=adapter-settings',
-      },
-      {
-        title: 'Global Settings',
-        path: '/assetinventory/settings?tab=global-settings',
-      },
-      {
-        title: 'Decommission Workflow',
-        path: '/assetinventory/settings?tab=lifecycle-management',
-      },
-      {
-        title: 'Default Ownership',
-        path: '/assetinventory/settings?tab=default-ownership',
-      },
-      {
-        title: 'Custom Fields',
-        path: '/assetinventory/settings?tab=custom-fields',
-      },
-      {
-        title: 'Tags',
-        path: '/assetinventory/settings?tab=tags',
-      },
-    ],
+    path: '/assetinventory/settings',
   },
 ];
 
