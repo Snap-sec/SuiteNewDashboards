@@ -115,7 +115,7 @@ export function Demo1Layout() {
 
       {!isMobile && <Sidebar origin={origin} />}
 
-      <div className="wrapper flex grow flex-col">
+      <div className="wrapper flex min-w-0 grow flex-col">
         <Header />
 
         <main className="grow pt-5 min-w-0" role="content">

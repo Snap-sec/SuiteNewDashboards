@@ -1,0 +1,317 @@
+{
+  "meta": {
+    "company": "Meridian Capital Group",
+    "asOf": "19 Nov 2026, 09:42 UTC",
+    "period": "Last 12 weeks",
+    "riskBand": "Elevated",
+    "riskScore": 68,
+    "riskDelta": -6,
+    "openExposures": 755,
+    "criticalExposures": 38,
+    "pastSla": 9,
+    "externalAssets": 2847,
+    "exposureRate": 26.5,
+    "slaCompliance": 86
+  },
+  "risk": {
+    "score": 68,
+    "band": "Elevated",
+    "delta": -6,
+    "coverage": 92,
+    "insight": "Payments and public cloud storage account for 53% of residual risk.",
+    "components": [
+      {
+        "id": "exposure",
+        "label": "Exposure",
+        "value": 74,
+        "color": "#F43F5E",
+        "detail": "Unauthenticated services and public data stores carry the most weight."
+      },
+      {
+        "id": "exploitability",
+        "label": "Exploitability",
+        "value": 61,
+        "color": "#8B5CF6",
+        "detail": "Public exploit paths and weak authentication increase likelihood."
+      },
+      {
+        "id": "impact",
+        "label": "Business impact",
+        "value": 81,
+        "color": "#0EA5E9",
+        "detail": "Payments and regulated customer data drive the impact score."
+      }
+    ]
+  },
+  "trend": {
+    "weeks": [
+      "Sep 1",
+      "Sep 8",
+      "Sep 15",
+      "Sep 22",
+      "Sep 29",
+      "Oct 6",
+      "Oct 13",
+      "Oct 20",
+      "Oct 27",
+      "Nov 3",
+      "Nov 10",
+      "Nov 17"
+    ],
+    "assets": [
+      2610, 2648, 2679, 2701, 2720, 2744, 2760, 2788, 2803, 2821, 2833, 2847
+    ],
+    "rate": [
+      23.4, 23.7, 24.0, 24.2, 24.5, 24.8, 25.1, 25.4, 25.7, 26.0, 26.2, 26.5
+    ],
+    "surfaceChange": 9.1,
+    "rateChange": 13.2,
+    "insight": "Exposure rate is rising faster than the external asset base."
+  },
+  "criticalExposures": [
+    {
+      "id": "SIG-2481",
+      "rank": 1,
+      "title": "Unauthenticated Grafana console",
+      "asset": "admin.meridian-pay.com",
+      "address": "18.194.22.41",
+      "businessUnit": "Payments",
+      "surface": "Web application",
+      "severity": "Critical",
+      "riskScore": 98,
+      "cvss": 9.8,
+      "sla": { "label": "4d over SLA", "overdue": true },
+      "owner": { "name": "Priya Nair", "team": "Payments" },
+      "status": "In progress",
+      "detected": "2h ago",
+      "firstSeen": "Nov 19, 2026 · 07:26 UTC",
+      "confidence": "Confirmed",
+      "description": "The Grafana administrative console is reachable from the public internet and accepts anonymous dashboard queries. A misconfigured anonymous role exposes datasource metadata and query results.",
+      "evidence": "HTTP/2 200 OK\nserver: grafana\nset-cookie: grafana_session=...\nGET /api/datasources -> 200\nGET /api/health -> {\"database\":\"ok\"}",
+      "remediation": "Disable anonymous access, require SSO through the corporate identity provider, and restrict the console to the VPN egress range. Rotate datasource credentials after applying the change."
+    },
+    {
+      "id": "SIG-2474",
+      "rank": 2,
+      "title": "Public bucket exposes customer exports",
+      "asset": "s3://mrc-backups-prod",
+      "address": "Cloud storage",
+      "businessUnit": "Payments",
+      "surface": "Cloud storage",
+      "severity": "Critical",
+      "riskScore": 96,
+      "cvss": 9.1,
+      "sla": { "label": "2d over SLA", "overdue": true },
+      "owner": { "name": "Lukas Weber", "team": "Cloud platform" },
+      "status": "Triaged",
+      "detected": "6h ago",
+      "firstSeen": "Nov 19, 2026 · 03:12 UTC",
+      "confidence": "Confirmed",
+      "description": "An S3 bucket used for nightly customer data exports allows anonymous ListBucket and GetObject. Object names follow the customer account identifier and export date.",
+      "evidence": "aws s3 ls s3://mrc-backups-prod -> PRE 2026-11-18/\nGET /mrc-backups-prod/2026-11-18/customer-exports.zip -> 200\nx-amz-request-id: 8F3A...",
+      "remediation": "Enable S3 Block Public Access at the account level, replace the bucket policy with an explicit deny for anonymous principals, and confirm the retention policy for affected exports."
+    },
+    {
+      "id": "SIG-2490",
+      "rank": 3,
+      "title": "Admin API key exposed in public bundle",
+      "asset": "assets.meridian-pay.com/static/app.js",
+      "address": "151.101.2.18",
+      "businessUnit": "Wealth",
+      "surface": "Web application",
+      "severity": "Critical",
+      "riskScore": 94,
+      "cvss": 8.9,
+      "sla": { "label": "1d over SLA", "overdue": true },
+      "owner": { "name": "Nadia Farouk", "team": "Wealth platform" },
+      "status": "Open",
+      "detected": "9h ago",
+      "firstSeen": "Nov 19, 2026 · 00:48 UTC",
+      "confidence": "Confirmed",
+      "description": "A privileged API key is embedded in the production JavaScript bundle served by the wealth application. The key grants read access to customer portfolio metadata.",
+      "evidence": "GET /static/app.js -> 200\nwindow.ADMIN_KEY=\"ak_live_...\"\nGET /v2/portfolios -> 200 (key accepted)",
+      "remediation": "Revoke and rotate the exposed key, move the integration behind a server-side proxy, and add secret scanning to the frontend build pipeline."
+    },
+    {
+      "id": "SIG-2488",
+      "rank": 4,
+      "title": "Kubernetes dashboard reachable without auth",
+      "asset": "k8s.meridian-pay.com",
+      "address": "52.57.101.34",
+      "businessUnit": "Shared services",
+      "surface": "Remote access",
+      "severity": "Critical",
+      "riskScore": 92,
+      "cvss": 8.7,
+      "sla": { "label": "Due today", "overdue": false },
+      "owner": { "name": "Sofia Almeida", "team": "Infrastructure" },
+      "status": "In progress",
+      "detected": "1d ago",
+      "firstSeen": "Nov 18, 2026 · 13:20 UTC",
+      "confidence": "Confirmed",
+      "description": "The Kubernetes dashboard is exposed to the internet and grants anonymous read access to namespace metadata. Workload secrets are not visible, but service topology is.",
+      "evidence": "GET /api/v1/namespaces -> 200\nAuthorization: anonymous\nRole: view",
+      "remediation": "Disable anonymous authentication, front the dashboard with the corporate identity proxy, and restrict network access to the platform team."
+    },
+    {
+      "id": "SIG-2483",
+      "rank": 5,
+      "title": "Wildcard DNS takeover risk",
+      "asset": "*.claims.meridian-pay.com",
+      "address": "DNS record",
+      "businessUnit": "Insurance",
+      "surface": "DNS",
+      "severity": "Critical",
+      "riskScore": 90,
+      "cvss": 8.4,
+      "sla": { "label": "1d left", "overdue": false },
+      "owner": { "name": "Ravi Menon", "team": "Insurance platform" },
+      "status": "Open",
+      "detected": "2d ago",
+      "firstSeen": "Nov 17, 2026 · 10:05 UTC",
+      "confidence": "Likely",
+      "description": "A wildcard DNS record points at a third-party edge provider without a verified ownership record. An attacker who claims the unbound hostname can serve content under the insurance brand.",
+      "evidence": "dig CNAME random.claims.meridian-pay.com\n-> unclaimed-vendor-edge.net\nTXT ownership: missing",
+      "remediation": "Remove the dangling wildcard record, confirm the provider binding, and add subdomain-takeover monitoring to the DNS change workflow."
+    }
+  ],
+  "assetHeatmap": {
+    "severities": ["Critical", "High", "Medium", "Low"],
+    "rows": [
+      {
+        "assetType": "Subdomains",
+        "values": [9, 38, 72, 54]
+      },
+      {
+        "assetType": "Web applications",
+        "values": [12, 44, 81, 49]
+      },
+      {
+        "assetType": "APIs",
+        "values": [7, 29, 55, 33]
+      },
+      {
+        "assetType": "IP addresses",
+        "values": [5, 21, 39, 26]
+      },
+      {
+        "assetType": "Cloud storage",
+        "values": [3, 18, 31, 22]
+      },
+      {
+        "assetType": "Certificates",
+        "values": [2, 14, 34, 57]
+      }
+    ],
+    "totals": [38, 164, 312, 241],
+    "grandTotal": 755
+  },
+  "surfaceChanges": {
+    "summary": {
+      "newAssets": 15,
+      "newExposures": 8,
+      "resolved": 4
+    },
+    "events": [
+      {
+        "id": "CHG-912",
+        "time": "09:42",
+        "type": "New exposure",
+        "title": "Unauthenticated admin console discovered",
+        "asset": "admin.meridian-pay.com",
+        "businessUnit": "Payments",
+        "severity": "Critical",
+        "detail": "The console returns a 200 response from the public internet and exposes anonymous query access."
+      },
+      {
+        "id": "CHG-908",
+        "time": "08:18",
+        "type": "New asset",
+        "title": "New subdomain added to scope",
+        "asset": "api.partner.meridian-pay.com",
+        "businessUnit": "Shared services",
+        "severity": "High",
+        "detail": "Discovered through certificate transparency; resolves to a partner API gateway."
+      },
+      {
+        "id": "CHG-903",
+        "time": "07:55",
+        "type": "Cloud",
+        "title": "Public object discovered in exports bucket",
+        "asset": "s3://mrc-backups-prod",
+        "businessUnit": "Payments",
+        "severity": "Critical",
+        "detail": "A new nightly export object is readable by anonymous principals."
+      },
+      {
+        "id": "CHG-899",
+        "time": "06:30",
+        "type": "Resolved",
+        "title": "Expired certificate replaced",
+        "asset": "pay.meridian-pay.com",
+        "businessUnit": "Payments",
+        "severity": "Resolved",
+        "detail": "The edge certificate was rotated and now validates correctly."
+      },
+      {
+        "id": "CHG-894",
+        "time": "Yesterday 22:14",
+        "type": "DNS",
+        "title": "SPF record changed on notification domain",
+        "asset": "notifications.meridian-pay.com",
+        "businessUnit": "Payments",
+        "severity": "Medium",
+        "detail": "The SPF include was removed, increasing spoofing exposure."
+      },
+      {
+        "id": "CHG-889",
+        "time": "Yesterday 18:02",
+        "type": "New exposure",
+        "title": "VPN portal policy drift detected",
+        "asset": "vpn.eu.meridian-pay.com",
+        "businessUnit": "Shared services",
+        "severity": "High",
+        "detail": "MFA enforcement was disabled for the contractor identity group."
+      }
+    ]
+  },
+  "remediation": {
+    "pastSla": 9,
+    "dueToday": 3,
+    "mttr": 6.4,
+    "target": 7,
+    "insight": "Two critical exposures account for six overdue days.",
+    "buckets": [
+      {
+        "label": "Overdue",
+        "value": 9,
+        "tone": "critical",
+        "detail": "Median 3.6 days past deadline."
+      },
+      {
+        "label": "Due today",
+        "value": 3,
+        "tone": "high",
+        "detail": "All three have an assigned owner."
+      },
+      {
+        "label": "1–3 days",
+        "value": 8,
+        "tone": "warning",
+        "detail": "Two still need an owner."
+      },
+      {
+        "label": "4–7 days",
+        "value": 14,
+        "tone": "neutral",
+        "detail": "Five are awaiting validation."
+      },
+      {
+        "label": "Later",
+        "value": 27,
+        "tone": "muted",
+        "detail": "Outside the current operating window."
+      }
+    ]
+  }
+}

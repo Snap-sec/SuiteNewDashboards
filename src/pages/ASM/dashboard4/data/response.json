@@ -1,0 +1,943 @@
+{
+  "meta": {
+    "company": "Meridian Capital Group",
+    "asOf": "19 Nov 2026, 09:42 UTC",
+    "period": "Last 90 days",
+    "exposureScore": 68,
+    "riskBand": "Elevated",
+    "externalAssets": 2847,
+    "openExposures": 755,
+    "criticalExposures": 38,
+    "slaCompliance": 86,
+    "criticalPastSla": 9,
+    "mttr": 6.4,
+    "mttrTarget": 7
+  },
+  "metrics": [
+    {
+      "id": "score",
+      "label": "Exposure score",
+      "value": "68"
+    },
+    {
+      "id": "critical",
+      "label": "Critical exposures",
+      "value": "38"
+    },
+    {
+      "id": "sla",
+      "label": "SLA compliance",
+      "value": "86%"
+    },
+    {
+      "id": "assets",
+      "label": "External assets",
+      "value": "2,847"
+    }
+  ],
+  "topology": {
+    "defaultNodeId": "admin",
+    "nodes": [
+      {
+        "id": "root",
+        "label": "meridian-pay.com",
+        "type": "Primary domain",
+        "businessUnit": "Corporate",
+        "risk": "root",
+        "open": 755,
+        "critical": 38,
+        "x": 50,
+        "y": 50,
+        "r": 30,
+        "labelSide": "bottom"
+      },
+      {
+        "id": "payments",
+        "label": "Payments",
+        "type": "Business unit",
+        "businessUnit": "Payments",
+        "risk": "critical",
+        "open": 268,
+        "critical": 14,
+        "x": 78,
+        "y": 22,
+        "r": 23,
+        "labelSide": "left"
+      },
+      {
+        "id": "wealth",
+        "label": "Wealth",
+        "type": "Business unit",
+        "businessUnit": "Wealth",
+        "risk": "high",
+        "open": 184,
+        "critical": 8,
+        "x": 86,
+        "y": 58,
+        "r": 21,
+        "labelSide": "left"
+      },
+      {
+        "id": "insurance",
+        "label": "Insurance",
+        "type": "Business unit",
+        "businessUnit": "Insurance",
+        "risk": "high",
+        "open": 142,
+        "critical": 6,
+        "x": 48,
+        "y": 86,
+        "r": 20,
+        "labelSide": "top"
+      },
+      {
+        "id": "corporate",
+        "label": "Corporate",
+        "type": "Business unit",
+        "businessUnit": "Corporate",
+        "risk": "medium",
+        "open": 94,
+        "critical": 5,
+        "x": 14,
+        "y": 58,
+        "r": 18,
+        "labelSide": "right"
+      },
+      {
+        "id": "shared",
+        "label": "Shared",
+        "type": "Business unit",
+        "businessUnit": "Shared services",
+        "risk": "high",
+        "open": 67,
+        "critical": 5,
+        "x": 22,
+        "y": 22,
+        "r": 17,
+        "labelSide": "right"
+      },
+      {
+        "id": "admin",
+        "label": "admin console",
+        "type": "Web application",
+        "businessUnit": "Payments",
+        "risk": "critical",
+        "open": 149,
+        "critical": 10,
+        "x": 92,
+        "y": 10,
+        "r": 16,
+        "labelSide": "left"
+      },
+      {
+        "id": "exports",
+        "label": "S3 exports",
+        "type": "Cloud storage",
+        "businessUnit": "Payments",
+        "risk": "critical",
+        "open": 119,
+        "critical": 4,
+        "x": 96,
+        "y": 36,
+        "r": 15,
+        "labelSide": "left"
+      },
+      {
+        "id": "wealth-web",
+        "label": "Wealth portal",
+        "type": "Web application",
+        "businessUnit": "Wealth",
+        "risk": "high",
+        "open": 106,
+        "critical": 5,
+        "x": 96,
+        "y": 70,
+        "r": 16,
+        "labelSide": "left"
+      },
+      {
+        "id": "wealth-api",
+        "label": "Wealth API",
+        "type": "API",
+        "businessUnit": "Wealth",
+        "risk": "medium",
+        "open": 78,
+        "critical": 3,
+        "x": 76,
+        "y": 94,
+        "r": 14,
+        "labelSide": "left"
+      },
+      {
+        "id": "claims-web",
+        "label": "Claims portal",
+        "type": "Web application",
+        "businessUnit": "Insurance",
+        "risk": "high",
+        "open": 84,
+        "critical": 4,
+        "x": 32,
+        "y": 96,
+        "r": 15,
+        "labelSide": "right"
+      },
+      {
+        "id": "claims-api",
+        "label": "Claims API",
+        "type": "API",
+        "businessUnit": "Insurance",
+        "risk": "medium",
+        "open": 58,
+        "critical": 2,
+        "x": 58,
+        "y": 98,
+        "r": 13,
+        "labelSide": "right"
+      },
+      {
+        "id": "marketing",
+        "label": "Marketing",
+        "type": "Web application",
+        "businessUnit": "Corporate",
+        "risk": "medium",
+        "open": 53,
+        "critical": 3,
+        "x": 5,
+        "y": 72,
+        "r": 14,
+        "labelSide": "right"
+      },
+      {
+        "id": "corporate-cloud",
+        "label": "Corporate cloud",
+        "type": "Cloud storage",
+        "businessUnit": "Corporate",
+        "risk": "medium",
+        "open": 41,
+        "critical": 2,
+        "x": 5,
+        "y": 92,
+        "r": 13,
+        "labelSide": "right"
+      },
+      {
+        "id": "partner-api",
+        "label": "Partner API",
+        "type": "API",
+        "businessUnit": "Shared services",
+        "risk": "high",
+        "open": 38,
+        "critical": 3,
+        "x": 7,
+        "y": 8,
+        "r": 14,
+        "labelSide": "right"
+      },
+      {
+        "id": "vpn",
+        "label": "VPN",
+        "type": "Remote access",
+        "businessUnit": "Shared services",
+        "risk": "high",
+        "open": 29,
+        "critical": 2,
+        "x": 7,
+        "y": 36,
+        "r": 13,
+        "labelSide": "right"
+      }
+    ],
+    "edges": [
+      {
+        "source": "root",
+        "target": "payments"
+      },
+      {
+        "source": "root",
+        "target": "wealth"
+      },
+      {
+        "source": "root",
+        "target": "insurance"
+      },
+      {
+        "source": "root",
+        "target": "corporate"
+      },
+      {
+        "source": "root",
+        "target": "shared"
+      },
+      {
+        "source": "payments",
+        "target": "admin"
+      },
+      {
+        "source": "payments",
+        "target": "exports"
+      },
+      {
+        "source": "wealth",
+        "target": "wealth-web"
+      },
+      {
+        "source": "wealth",
+        "target": "wealth-api"
+      },
+      {
+        "source": "insurance",
+        "target": "claims-web"
+      },
+      {
+        "source": "insurance",
+        "target": "claims-api"
+      },
+      {
+        "source": "corporate",
+        "target": "marketing"
+      },
+      {
+        "source": "corporate",
+        "target": "corporate-cloud"
+      },
+      {
+        "source": "shared",
+        "target": "partner-api"
+      },
+      {
+        "source": "shared",
+        "target": "vpn"
+      }
+    ],
+    "insight": "Payments carries 35% of open exposure; the admin console is the highest-risk node."
+  },
+  "riskMatrix": {
+    "items": [
+      {
+        "id": "payments",
+        "label": "Payments",
+        "short": "Pay",
+        "likelihood": 5,
+        "impact": 5,
+        "open": 268,
+        "critical": 14,
+        "severity": "Critical"
+      },
+      {
+        "id": "wealth",
+        "label": "Wealth",
+        "short": "Wealth",
+        "likelihood": 4,
+        "impact": 4,
+        "open": 184,
+        "critical": 8,
+        "severity": "High"
+      },
+      {
+        "id": "insurance",
+        "label": "Insurance",
+        "short": "Ins",
+        "likelihood": 3,
+        "impact": 5,
+        "open": 142,
+        "critical": 6,
+        "severity": "High"
+      },
+      {
+        "id": "shared",
+        "label": "Shared services",
+        "short": "Shared",
+        "likelihood": 4,
+        "impact": 2,
+        "open": 67,
+        "critical": 5,
+        "severity": "High"
+      },
+      {
+        "id": "corporate",
+        "label": "Corporate",
+        "short": "Corp",
+        "likelihood": 2,
+        "impact": 3,
+        "open": 94,
+        "critical": 5,
+        "severity": "High"
+      }
+    ]
+  },
+  "treemap": [
+    {
+      "id": "pay-web",
+      "name": "Payments \u00b7 Web",
+      "short": "Pay \u00b7 Web",
+      "businessUnit": "Payments",
+      "assetClass": "Web applications",
+      "value": 118,
+      "risk": 88,
+      "critical": 6
+    },
+    {
+      "id": "pay-cloud",
+      "name": "Payments \u00b7 Cloud",
+      "short": "Pay \u00b7 Cloud",
+      "businessUnit": "Payments",
+      "assetClass": "Cloud storage",
+      "value": 54,
+      "risk": 76,
+      "critical": 4
+    },
+    {
+      "id": "pay-api",
+      "name": "Payments \u00b7 API",
+      "short": "Pay \u00b7 API",
+      "businessUnit": "Payments",
+      "assetClass": "APIs",
+      "value": 63,
+      "risk": 81,
+      "critical": 3
+    },
+    {
+      "id": "pay-other",
+      "name": "Payments \u00b7 Other",
+      "short": "Pay \u00b7 Other",
+      "businessUnit": "Payments",
+      "assetClass": "Other assets",
+      "value": 33,
+      "risk": 62,
+      "critical": 1
+    },
+    {
+      "id": "wealth-web",
+      "name": "Wealth \u00b7 Web",
+      "short": "Wealth \u00b7 Web",
+      "businessUnit": "Wealth",
+      "assetClass": "Web applications",
+      "value": 84,
+      "risk": 74,
+      "critical": 4
+    },
+    {
+      "id": "wealth-api",
+      "name": "Wealth \u00b7 API",
+      "short": "Wealth \u00b7 API",
+      "businessUnit": "Wealth",
+      "assetClass": "APIs",
+      "value": 46,
+      "risk": 69,
+      "critical": 2
+    },
+    {
+      "id": "wealth-other",
+      "name": "Wealth \u00b7 Other",
+      "short": "Wealth \u00b7 Other",
+      "businessUnit": "Wealth",
+      "assetClass": "Cloud and DNS",
+      "value": 54,
+      "risk": 55,
+      "critical": 2
+    },
+    {
+      "id": "ins-web",
+      "name": "Insurance \u00b7 Web",
+      "short": "Ins \u00b7 Web",
+      "businessUnit": "Insurance",
+      "assetClass": "Web applications",
+      "value": 66,
+      "risk": 65,
+      "critical": 3
+    },
+    {
+      "id": "ins-api",
+      "name": "Insurance \u00b7 API",
+      "short": "Ins \u00b7 API",
+      "businessUnit": "Insurance",
+      "assetClass": "APIs",
+      "value": 38,
+      "risk": 58,
+      "critical": 2
+    },
+    {
+      "id": "ins-other",
+      "name": "Insurance \u00b7 Other",
+      "short": "Ins \u00b7 Other",
+      "businessUnit": "Insurance",
+      "assetClass": "Cloud and DNS",
+      "value": 38,
+      "risk": 49,
+      "critical": 1
+    },
+    {
+      "id": "corp-web",
+      "name": "Corporate \u00b7 Web",
+      "short": "Corp \u00b7 Web",
+      "businessUnit": "Corporate",
+      "assetClass": "Web applications",
+      "value": 51,
+      "risk": 57,
+      "critical": 3
+    },
+    {
+      "id": "corp-cloud",
+      "name": "Corporate \u00b7 Cloud",
+      "short": "Corp \u00b7 Cloud",
+      "businessUnit": "Corporate",
+      "assetClass": "Cloud storage",
+      "value": 25,
+      "risk": 46,
+      "critical": 1
+    },
+    {
+      "id": "corp-other",
+      "name": "Corporate \u00b7 Other",
+      "short": "Corp \u00b7 Other",
+      "businessUnit": "Corporate",
+      "assetClass": "APIs and DNS",
+      "value": 18,
+      "risk": 38,
+      "critical": 1
+    },
+    {
+      "id": "shared-api",
+      "name": "Shared \u00b7 API",
+      "short": "Shared \u00b7 API",
+      "businessUnit": "Shared services",
+      "assetClass": "APIs",
+      "value": 27,
+      "risk": 61,
+      "critical": 2
+    },
+    {
+      "id": "shared-web",
+      "name": "Shared \u00b7 Web",
+      "short": "Shared \u00b7 Web",
+      "businessUnit": "Shared services",
+      "assetClass": "Web applications",
+      "value": 14,
+      "risk": 44,
+      "critical": 2
+    },
+    {
+      "id": "shared-other",
+      "name": "Shared \u00b7 Other",
+      "short": "Shared \u00b7 Other",
+      "businessUnit": "Shared services",
+      "assetClass": "Cloud and DNS",
+      "value": 26,
+      "risk": 35,
+      "critical": 1
+    }
+  ],
+  "heatmap": {
+    "weeks": [
+      "Sep 8",
+      "Sep 15",
+      "Sep 22",
+      "Sep 29",
+      "Oct 6",
+      "Oct 13",
+      "Oct 20",
+      "Oct 27",
+      "Nov 3",
+      "Nov 10"
+    ],
+    "max": 18,
+    "rows": [
+      {
+        "businessUnit": "Payments",
+        "values": [12, 11, 14, 10, 15, 12, 18, 14, 11, 9]
+      },
+      {
+        "businessUnit": "Wealth",
+        "values": [13, 15, 10, 12, 9, 16, 11, 13, 14, 10]
+      },
+      {
+        "businessUnit": "Insurance",
+        "values": [7, 8, 9, 6, 8, 7, 9, 8, 7, 6]
+      },
+      {
+        "businessUnit": "Corporate",
+        "values": [5, 6, 4, 7, 5, 6, 5, 4, 5, 4]
+      },
+      {
+        "businessUnit": "Shared",
+        "values": [4, 3, 5, 4, 6, 5, 4, 5, 3, 4]
+      }
+    ],
+    "insight": "Payments and Wealth account for 60% of new exposure this period."
+  },
+  "remediation": {
+    "pastSla": 9,
+    "dueToday": 3,
+    "buckets": [
+      {
+        "label": "Overdue",
+        "value": 9,
+        "tone": "critical"
+      },
+      {
+        "label": "Due today",
+        "value": 3,
+        "tone": "high"
+      },
+      {
+        "label": "1\u20133 days",
+        "value": 8,
+        "tone": "warning"
+      },
+      {
+        "label": "4\u20137 days",
+        "value": 14,
+        "tone": "neutral"
+      },
+      {
+        "label": "Later",
+        "value": 27,
+        "tone": "muted"
+      }
+    ],
+    "breaches": [
+      {
+        "id": "SIG-2481",
+        "severity": "Critical",
+        "title": "Unauthenticated Grafana console",
+        "asset": "admin.meridian-pay.com",
+        "over": "4d over"
+      },
+      {
+        "id": "SIG-2474",
+        "severity": "Critical",
+        "title": "Public bucket exposes customer exports",
+        "asset": "s3://mrc-backups-prod",
+        "over": "2d over"
+      }
+    ],
+    "mttr": 6.4,
+    "target": 7
+  },
+  "findings": [
+    {
+      "id": "SIG-2481",
+      "nodeId": "admin",
+      "title": "Unauthenticated Grafana console",
+      "asset": "admin.meridian-pay.com",
+      "address": "18.194.22.41",
+      "surface": "Web application",
+      "surfaceKey": "web",
+      "businessUnit": "Payments",
+      "severity": "Critical",
+      "cvss": 9.8,
+      "sla": {
+        "label": "4d over SLA",
+        "overdue": true
+      },
+      "owner": {
+        "name": "Priya Nair",
+        "team": "Payments"
+      },
+      "status": "In progress",
+      "detected": "2h ago",
+      "firstSeen": "Nov 19, 2026 \u00b7 07:26 UTC",
+      "confidence": "Confirmed",
+      "description": "The Grafana administrative console is reachable from the public internet and accepts anonymous dashboard queries. A misconfigured anonymous role exposes datasource metadata and query results.",
+      "evidence": "HTTP/2 200 OK\nserver: grafana\nset-cookie: grafana_session=...\nGET /api/datasources -> 200\nGET /api/health -> {\"database\":\"ok\"}",
+      "remediation": "Disable anonymous access, require SSO through the corporate identity provider, and restrict the console to the VPN egress range. Rotate datasource credentials after applying the change."
+    },
+    {
+      "id": "SIG-2474",
+      "nodeId": "exports",
+      "title": "Public bucket exposes customer exports",
+      "asset": "s3://mrc-backups-prod",
+      "address": "Cloud storage",
+      "surface": "Cloud storage",
+      "surfaceKey": "cloud",
+      "businessUnit": "Payments",
+      "severity": "Critical",
+      "cvss": 9.1,
+      "sla": {
+        "label": "2d over SLA",
+        "overdue": true
+      },
+      "owner": {
+        "name": "Lukas Weber",
+        "team": "Cloud platform"
+      },
+      "status": "Triaged",
+      "detected": "6h ago",
+      "firstSeen": "Nov 19, 2026 \u00b7 03:12 UTC",
+      "confidence": "Confirmed",
+      "description": "An S3 bucket used for nightly customer data exports allows anonymous ListBucket and GetObject. Object names follow the customer account identifier and export date.",
+      "evidence": "aws s3 ls s3://mrc-backups-prod -> PRE 2026-11-18/\nGET /mrc-backups-prod/2026-11-18/customer-exports.zip -> 200\nx-amz-request-id: 8F3A...",
+      "remediation": "Enable S3 Block Public Access at the account level, replace the bucket policy with an explicit deny for anonymous principals, and confirm the retention policy for affected exports."
+    },
+    {
+      "id": "SIG-2469",
+      "nodeId": "vpn",
+      "title": "SSL VPN portal missing MFA",
+      "asset": "vpn.eu.meridian-pay.com",
+      "address": "52.58.19.7",
+      "surface": "Remote access",
+      "surfaceKey": "remote",
+      "businessUnit": "Shared services",
+      "severity": "High",
+      "cvss": 8.2,
+      "sla": {
+        "label": "Due today",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Sofia Almeida",
+        "team": "Infrastructure"
+      },
+      "status": "In progress",
+      "detected": "1d ago",
+      "firstSeen": "Nov 18, 2026 \u00b7 12:04 UTC",
+      "confidence": "Confirmed",
+      "description": "The perimeter VPN portal accepts password-only authentication for a subset of contractor accounts. Device posture checks are not enforced for that identity group.",
+      "evidence": "GET /remote/login -> 200\nRealm: contractors\nAuth methods: password\nMFA: disabled",
+      "remediation": "Enforce MFA for all identity groups, remove the contractor bypass, and require device posture before tunnel establishment."
+    },
+    {
+      "id": "SIG-2461",
+      "nodeId": "partner-api",
+      "title": "GraphQL introspection publicly enabled",
+      "asset": "api.partner.meridian-pay.com",
+      "address": "3.126.7.18",
+      "surface": "API",
+      "surfaceKey": "api",
+      "businessUnit": "Shared services",
+      "severity": "High",
+      "cvss": 7.5,
+      "sla": {
+        "label": "2d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Daniel Kim",
+        "team": "Partner APIs"
+      },
+      "status": "Open",
+      "detected": "1d ago",
+      "firstSeen": "Nov 18, 2026 \u00b7 09:41 UTC",
+      "confidence": "Confirmed",
+      "description": "The partner GraphQL endpoint returns its full schema to unauthenticated callers. Introspection reveals internal mutations and deprecated administrative fields.",
+      "evidence": "POST /graphql {\"query\":\"{ __schema { types { name } } }\"} -> 200\nschema.typeCount: 184\nmutations: 31",
+      "remediation": "Disable introspection outside development, require partner authentication at the gateway, and review the schema for fields that should not be publicly discoverable."
+    },
+    {
+      "id": "SIG-2454",
+      "nodeId": "payments",
+      "title": "Expired TLS certificate on payments edge",
+      "asset": "pay.meridian-pay.com",
+      "address": "34.89.11.20",
+      "surface": "Web application",
+      "surfaceKey": "web",
+      "businessUnit": "Payments",
+      "severity": "High",
+      "cvss": 7.4,
+      "sla": {
+        "label": "1d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Amara Okafor",
+        "team": "Payments"
+      },
+      "status": "In progress",
+      "detected": "2d ago",
+      "firstSeen": "Nov 17, 2026 \u00b7 16:19 UTC",
+      "confidence": "Confirmed",
+      "description": "The edge load balancer is serving an expired certificate for the payment authorization hostname. Clients relying on strict validation will receive a trust error.",
+      "evidence": "tls.connect pay.meridian-pay.com:443\nvalid_to: Nov 16 23:59:59 2026 GMT\nerror: CERT_HAS_EXPIRED",
+      "remediation": "Install the renewed certificate chain, verify OCSP stapling, and roll the edge configuration across all regions."
+    },
+    {
+      "id": "SIG-2448",
+      "nodeId": "shared",
+      "title": "Public Jenkins controller exposed",
+      "asset": "ci.meridian-pay.com",
+      "address": "18.157.88.12",
+      "surface": "Web application",
+      "surfaceKey": "web",
+      "businessUnit": "Shared services",
+      "severity": "High",
+      "cvss": 7.1,
+      "sla": {
+        "label": "3d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Marcus Chen",
+        "team": "Engineering"
+      },
+      "status": "Triaged",
+      "detected": "2d ago",
+      "firstSeen": "Nov 17, 2026 \u00b7 08:52 UTC",
+      "confidence": "Confirmed",
+      "description": "A Jenkins controller is reachable without network restrictions. Anonymous users can enumerate jobs and read build parameters that reference deployment secrets by name.",
+      "evidence": "GET /api/json -> 200\njobs: 214\nanonymous.read: true\nsecurityRealm: none",
+      "remediation": "Move the controller behind the corporate network or an identity-aware proxy, disable anonymous read access, and rotate any credentials referenced by public job parameters."
+    },
+    {
+      "id": "SIG-2439",
+      "nodeId": "marketing",
+      "title": "Exposed .git directory on marketing site",
+      "asset": "www.meridian-pay.com",
+      "address": "151.101.2.18",
+      "surface": "Web application",
+      "surfaceKey": "web",
+      "businessUnit": "Corporate",
+      "severity": "Medium",
+      "cvss": 6.5,
+      "sla": {
+        "label": "6d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Elena Rossi",
+        "team": "Brand"
+      },
+      "status": "Open",
+      "detected": "3d ago",
+      "firstSeen": "Nov 16, 2026 \u00b7 14:30 UTC",
+      "confidence": "Confirmed",
+      "description": "The marketing site serves its .git metadata directory, including commit history and a configuration file with a legacy deployment token.",
+      "evidence": "GET /.git/config -> 200\nGET /.git/HEAD -> ref: refs/heads/main\ndeploy token: legacy-edge-...",
+      "remediation": "Block dotfile access at the edge, remove the directory from the deployed artifact, and revoke the legacy deployment token."
+    },
+    {
+      "id": "SIG-2431",
+      "nodeId": "corporate-cloud",
+      "title": "S3 website endpoint allows directory listing",
+      "asset": "assets.meridian-pay.com",
+      "address": "Cloud storage",
+      "surface": "Cloud storage",
+      "surfaceKey": "cloud",
+      "businessUnit": "Corporate",
+      "severity": "Medium",
+      "cvss": 6.1,
+      "sla": {
+        "label": "8d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Lukas Weber",
+        "team": "Cloud platform"
+      },
+      "status": "Risk accepted",
+      "detected": "4d ago",
+      "firstSeen": "Nov 15, 2026 \u00b7 11:08 UTC",
+      "confidence": "Likely",
+      "description": "The static asset bucket returns an index for directories without an object. The content is intended for public consumption but reveals draft campaign folders.",
+      "evidence": "GET /2026/campaigns/ -> 200\nObjects: draft-q4, press-kit-v3",
+      "remediation": "Disable the static website index document, add a deny for ListBucket, and verify that draft folders are not deployed to the production bucket."
+    },
+    {
+      "id": "SIG-2425",
+      "nodeId": "corporate",
+      "title": "Deprecated API version exposed",
+      "asset": "api.meridian-pay.com",
+      "address": "3.120.44.91",
+      "surface": "API",
+      "surfaceKey": "api",
+      "businessUnit": "Corporate",
+      "severity": "Medium",
+      "cvss": 5.8,
+      "sla": {
+        "label": "9d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Daniel Kim",
+        "team": "Partner APIs"
+      },
+      "status": "Open",
+      "detected": "5d ago",
+      "firstSeen": "Nov 14, 2026 \u00b7 18:43 UTC",
+      "confidence": "Confirmed",
+      "description": "API v1 remains reachable after the published deprecation date. It returns verbose validation errors and lacks the rate limits enforced on v2.",
+      "evidence": "GET /v1/accounts -> 200\nDeprecation: true\nSunset not enforced",
+      "remediation": "Return 410 for v1 routes, remove the v1 deployment from the gateway, and confirm that remaining partner integrations have migrated."
+    },
+    {
+      "id": "SIG-2417",
+      "nodeId": "payments",
+      "title": "SPF record missing for secondary domain",
+      "asset": "notifications.meridian-pay.com",
+      "address": "DNS record",
+      "surface": "Email",
+      "surfaceKey": "email",
+      "businessUnit": "Payments",
+      "severity": "Medium",
+      "cvss": 5.3,
+      "sla": {
+        "label": "11d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Amara Okafor",
+        "team": "Payments"
+      },
+      "status": "Triaged",
+      "detected": "6d ago",
+      "firstSeen": "Nov 13, 2026 \u00b7 10:22 UTC",
+      "confidence": "Confirmed",
+      "description": "The notification domain has no SPF record and uses a permissive DMARC policy. This increases the domain\u2019s susceptibility to sender spoofing.",
+      "evidence": "dig TXT notifications.meridian-pay.com\n-> (no SPF record)\nDMARC: v=DMARC1; p=none",
+      "remediation": "Publish an SPF record that includes the transactional email provider, move DMARC to p=quarantine, and monitor the aggregate reports for two weeks."
+    },
+    {
+      "id": "SIG-2409",
+      "nodeId": "vpn",
+      "title": "Legacy FTP service reachable",
+      "asset": "ftp.meridian-pay.com",
+      "address": "52.57.101.34",
+      "surface": "Remote access",
+      "surfaceKey": "remote",
+      "businessUnit": "Shared services",
+      "severity": "High",
+      "cvss": 7.0,
+      "sla": {
+        "label": "1d over SLA",
+        "overdue": true
+      },
+      "owner": {
+        "name": "Sofia Almeida",
+        "team": "Infrastructure"
+      },
+      "status": "In progress",
+      "detected": "7d ago",
+      "firstSeen": "Nov 12, 2026 \u00b7 06:17 UTC",
+      "confidence": "Confirmed",
+      "description": "A legacy FTP endpoint remains reachable on the public internet. The service advertises anonymous read access and has no transport encryption.",
+      "evidence": "220 FTP server ready\nUSER anonymous -> 230 Login successful\nPASV supported, TLS not advertised",
+      "remediation": "Decommission the FTP endpoint, migrate the remaining batch partner to SFTP over the VPN, and block port 21 at the perimeter."
+    },
+    {
+      "id": "SIG-2401",
+      "nodeId": "marketing",
+      "title": "Password policy weakened on support portal",
+      "asset": "support.meridian-pay.com",
+      "address": "18.198.14.77",
+      "surface": "Web application",
+      "surfaceKey": "web",
+      "businessUnit": "Corporate",
+      "severity": "Low",
+      "cvss": 3.7,
+      "sla": {
+        "label": "18d left",
+        "overdue": false
+      },
+      "owner": {
+        "name": "Elena Rossi",
+        "team": "Brand"
+      },
+      "status": "Open",
+      "detected": "8d ago",
+      "firstSeen": "Nov 11, 2026 \u00b7 09:05 UTC",
+      "confidence": "Likely",
+      "description": "The support portal accepts eight-character passwords without a breach-list check. This does not expose data directly but increases account takeover risk.",
+      "evidence": "POST /api/register password=12345678 -> 201\nPolicy: minLength=8, hibp=false",
+      "remediation": "Raise the minimum length to twelve characters, add a breached-password check, and notify users with a grace period before enforcement."
+    }
+  ]
+}

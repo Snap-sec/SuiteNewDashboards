@@ -1,79 +1,82 @@
-import React, { Suspense } from 'react';
-import { Route, Routes } from 'react-router';
-import { ContentLoader } from '@/components/common/content-loader';
+import React, { Suspense } from "react";
+import { Route, Routes } from "react-router";
+import { ContentLoader } from "@/components/common/content-loader";
 
 const Dashboard = React.lazy(
-  () => import('@/pages/ASM/dashboards/executive/executive-dashboard-page.jsx'),
+  () => import("@/pages/ASM/dashboards/executive/executive-dashboard-page.jsx"),
 );
+const CisoDashboard = React.lazy(() => import("@/pages/ASM/dashboard3"));
+const CisoCommandDashboard = React.lazy(() => import("@/pages/ASM/dashboard4"));
+const CisoRiskBriefing = React.lazy(() => import("@/pages/ASM/dashboard5"));
+const SurfaceCommandPort = React.lazy(() => import("@/pages/ASM/dashboard6"));
+const AllAssetsPage = React.lazy(() => import("@/pages/ASM/allasset"));
 const AnalyticsDashboardPage = React.lazy(
-  () => import('@/pages/ASM/dashboards/analytics/analytics-dashboard-page.jsx'),
+  () => import("@/pages/ASM/dashboards/analytics/analytics-dashboard-page.jsx"),
 );
-const Exposures = React.lazy(() => import('@/pages/ASM/exposures/exposures'));
-const Signals = React.lazy(() => import('@/pages/ASM/signals/signals'));
-const SignalLibrary = React.lazy(() => import('@/pages/ASM/signal-library/signal-library'));
-const FalseExposures = React.lazy(() => import('@/pages/ASM/exposures/false-exposures'));
+const Exposures = React.lazy(() => import("@/pages/ASM/exposures/exposures"));
+const Signals = React.lazy(() => import("@/pages/ASM/signals/signals"));
+const SignalLibrary = React.lazy(
+  () => import("@/pages/ASM/signal-library/signal-library"),
+);
+const FalseExposures = React.lazy(
+  () => import("@/pages/ASM/exposures/false-exposures"),
+);
 
-const ScansPage = React.lazy(() => import('@/pages/ASM/scans/scans'));
+const ScansPage = React.lazy(() => import("@/pages/ASM/scans/scans"));
 
-const ReportsPage = React.lazy(() => import('@/pages/ASM/reports/reports'));
+const ReportsPage = React.lazy(() => import("@/pages/ASM/reports/reports"));
 const Subdomains = React.lazy(
-  () => import('@/pages/ASM/attack-surface/subdomains/subdomains'),
+  () => import("@/pages/ASM/attack-surface/subdomains/subdomains"),
 );
 
-const Rules = React.lazy(() => import('@/pages/ASM/rules/rules'));
+const Rules = React.lazy(() => import("@/pages/ASM/rules/rules"));
 
 const IPAddresses = React.lazy(
-  () => import('@/pages/ASM/attack-surface/ip-addresses/ipAddresses'),
+  () => import("@/pages/ASM/attack-surface/ip-addresses/ipAddresses"),
 );
 const DNSRecords = React.lazy(
-  () => import('@/pages/ASM/attack-surface/dns-records/dnsRecords'),
+  () => import("@/pages/ASM/attack-surface/dns-records/dnsRecords"),
 );
 const Ports = React.lazy(
-  () => import('@/pages/ASM/attack-surface/ports/ports'),
+  () => import("@/pages/ASM/attack-surface/ports/ports"),
 );
-const Apis = React.lazy(
-  () => import('@/pages/ASM/attack-surface/apis/apis'),
-);
+const Apis = React.lazy(() => import("@/pages/ASM/attack-surface/apis/apis"));
 const Certificates = React.lazy(
-  () => import('@/pages/ASM/attack-surface/certificates/certificates'),
+  () => import("@/pages/ASM/attack-surface/certificates/certificates"),
 );
 const Technologies = React.lazy(
-  () => import('@/pages/ASM/attack-surface/technologies/technologies'),
+  () => import("@/pages/ASM/attack-surface/technologies/technologies"),
 );
 
 const Technologies2 = React.lazy(
-  () => import('@/pages/ASM/attack-surface/technologies2/technologies2'),
+  () => import("@/pages/ASM/attack-surface/technologies2/technologies2"),
 );
 
 const Integrations = React.lazy(
-  () => import('@/pages/ASM/integrations/integrations'),
+  () => import("@/pages/ASM/integrations/integrations"),
 );
 
-
 const GuidedRuleEditor = React.lazy(
-  () => import('@/pages/ASM/post-asm-rule/guided-rule-editor'),
+  () => import("@/pages/ASM/post-asm-rule/guided-rule-editor"),
 );
 
 const BlacklistRulesPage = React.lazy(
-  () => import('@/pages/ASM/blacklist-rules/blacklist-rules-page'),
+  () => import("@/pages/ASM/blacklist-rules/blacklist-rules-page"),
 );
 const BlacklistGuidedRuleEditor = React.lazy(
-  () => import('@/pages/ASM/blacklist-rules/guided-editor/guided-rule-editor'),
+  () => import("@/pages/ASM/blacklist-rules/guided-editor/guided-rule-editor"),
 );
-
 
 const WebServers = React.lazy(
-  () => import('@/pages/ASM/attack-surface/web-servers/web-servers'),
+  () => import("@/pages/ASM/attack-surface/web-servers/web-servers"),
 );
-
 
 const RoiDashboard = React.lazy(
-  () => import('@/pages/ASM/roi-dashboard/roi-dashboard'),
+  () => import("@/pages/ASM/roi-dashboard/roi-dashboard"),
 );
 
-
 const GlobalAssetDetails = React.lazy(
-  () => import('@/pages/ASM/attack-surface/asset-edit/asset-edit'),
+  () => import("@/pages/ASM/attack-surface/asset-edit/asset-edit"),
 );
 
 // const Integration = React.lazy(
@@ -81,9 +84,8 @@ const GlobalAssetDetails = React.lazy(
 // );
 
 const AllAssets = React.lazy(
-  () => import('@/pages/ASM/attack-surface/all-assets/all-assets'),
+  () => import("@/pages/ASM/attack-surface/all-assets/all-assets"),
 );
-
 
 export function ASMRoutingSetup() {
   return (
@@ -94,7 +96,73 @@ export function ASMRoutingSetup() {
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <Dashboard />
+            <SurfaceCommandPort />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/dashboard3"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <CisoDashboard />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/dashboard4"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <CisoCommandDashboard />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/dashboard5"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <CisoRiskBriefing />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/dashboard6"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <SurfaceCommandPort />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/allasset"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <AllAssetsPage />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/allassets"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <AllAssetsPage />
           </Suspense>
         }
       />
@@ -109,7 +177,6 @@ export function ASMRoutingSetup() {
           </Suspense>
         }
       />
-
 
       <Route
         path="/scans"
@@ -143,7 +210,6 @@ export function ASMRoutingSetup() {
           </Suspense>
         }
       />
-
 
       <Route
         path="/asset-details/:assetId"
@@ -316,7 +382,6 @@ export function ASMRoutingSetup() {
         }
       />
 
-
       <Route
         path="/roi-dashboard"
         element={
@@ -361,7 +426,6 @@ export function ASMRoutingSetup() {
         }
       />
 
-
       {/* <Route
         path="/integration"
         element={
@@ -372,8 +436,6 @@ export function ASMRoutingSetup() {
           </Suspense>
         }
       /> */}
-
-
     </Routes>
   );
 }

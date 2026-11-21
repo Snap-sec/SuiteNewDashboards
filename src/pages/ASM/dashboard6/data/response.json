@@ -1,0 +1,396 @@
+{
+  "workspace": "Northwind Labs",
+  "updatedLabel": "Updated 4 min ago",
+  "summary": {
+    "assets": 1284,
+    "withFindings": 214,
+    "scanCoverage": 92,
+    "pastSla": 3
+  },
+  "exposurePressure": {
+    "open": 47,
+    "delta": "-9 fewer than last month",
+    "split": [
+      { "label": "9 critical", "tone": "critical" },
+      { "label": "14 high", "tone": "serious" },
+      { "label": "24 medium & low", "tone": "low" }
+    ],
+    "flow": {
+      "labels": [
+        "Sep 28",
+        "Oct 5",
+        "Oct 12",
+        "Oct 19",
+        "Oct 26",
+        "Nov 2",
+        "Nov 9",
+        "Nov 16"
+      ],
+      "opened": [5, 7, 4, 8, 5, 6, 4, 3],
+      "resolved": [8, 6, 7, 6, 8, 7, 8, 8]
+    },
+    "flowSummary": { "opened": 42, "resolved": 58, "weeks": 8 }
+  },
+  "riskScore": {
+    "score": 68,
+    "band": "Elevated",
+    "delta": "6 points since Oct 20",
+    "bands": [
+      { "label": "Low", "weight": 40, "tone": "low" },
+      { "label": "Moderate", "weight": 20, "tone": "moderate" },
+      { "label": "High", "weight": 20, "tone": "high" },
+      { "label": "Critical", "weight": 20, "tone": "critical" }
+    ],
+    "drivers": [
+      { "label": "External surface", "value": 72 },
+      { "label": "Patch latency", "value": 58 },
+      { "label": "Identity gaps", "value": 44 }
+    ]
+  },
+  "scanPulse": {
+    "month": "November 2026",
+    "year": 2026,
+    "nextScan": "Nov 24",
+    "nextScanTime": "09:00 UTC",
+    "cadence": "Weekly on Tuesdays",
+    "today": 19,
+    "scheduledDates": [
+      {
+        "date": 24,
+        "title": "Weekly Perimeter & Exposure Scan",
+        "time": "09:00 UTC",
+        "type": "Full Surface",
+        "scope": "1,284 assets · Discovery & CVE check",
+        "status": "next"
+      },
+      {
+        "date": 28,
+        "title": "Cloud Perimeter & TLS Audit",
+        "time": "14:00 UTC",
+        "type": "Targeted",
+        "scope": "Cloud buckets & SSL certs",
+        "status": "scheduled"
+      }
+    ],
+    "completedDates": [
+      {
+        "date": 3,
+        "title": "Weekly Discovery Scan",
+        "time": "09:00 UTC",
+        "status": "completed",
+        "findings": 52
+      },
+      {
+        "date": 10,
+        "title": "Weekly Discovery Scan",
+        "time": "09:00 UTC",
+        "status": "completed",
+        "findings": 49
+      },
+      {
+        "date": 17,
+        "title": "Weekly Discovery Scan",
+        "time": "09:00 UTC",
+        "status": "completed",
+        "findings": 47
+      }
+    ],
+    "lastScan": "Nov 17",
+    "lastScanFindings": 47
+  },
+  "exposureMatrix": {
+    "severities": ["Critical", "High", "Medium", "Low"],
+    "rows": [
+      {
+        "assetType": "Subdomains",
+        "counts": [1, 3, 2, 1],
+        "total": 7,
+        "series": 1
+      },
+      {
+        "assetType": "Web servers",
+        "counts": [4, 3, 3, 1],
+        "total": 11,
+        "series": 2
+      },
+      {
+        "assetType": "DNS records",
+        "counts": [0, 2, 3, 0],
+        "total": 5,
+        "series": 3
+      },
+      {
+        "assetType": "IP addresses",
+        "counts": [2, 3, 2, 2],
+        "total": 9,
+        "series": 4
+      },
+      {
+        "assetType": "Technologies",
+        "counts": [2, 3, 6, 4],
+        "total": 15,
+        "series": 5
+      }
+    ],
+    "totals": [9, 14, 16, 8],
+    "grandTotal": 47,
+    "footer": "Technologies and web servers hold 55% of open findings"
+  },
+  "priorityQueue": {
+    "atRisk": 3,
+    "showing": 5,
+    "total": 9,
+    "items": [
+      {
+        "rank": 1,
+        "asset": "payments.northwind.dev",
+        "severity": "Critical",
+        "open": 12,
+        "type": "Web server",
+        "team": "Payments team",
+        "sla": "2h",
+        "slaLabel": "to SLA",
+        "risk": true
+      },
+      {
+        "rank": 2,
+        "asset": "legacy-admin.northwind.dev",
+        "severity": "Critical",
+        "open": 8,
+        "type": "Web server",
+        "team": "Platform",
+        "sla": "6h",
+        "slaLabel": "to SLA",
+        "risk": true
+      },
+      {
+        "rank": 3,
+        "asset": "northwind-media-prod",
+        "severity": "High",
+        "open": 6,
+        "type": "Storage bucket",
+        "team": "Media",
+        "sla": "1d",
+        "slaLabel": "to SLA",
+        "risk": false
+      },
+      {
+        "rank": 4,
+        "asset": "vpn-gw.northwind.dev",
+        "severity": "High",
+        "open": 5,
+        "type": "IP address",
+        "team": "IT operations",
+        "sla": "2d",
+        "slaLabel": "to SLA",
+        "risk": false
+      },
+      {
+        "rank": 5,
+        "asset": "dns1.northwind.dev",
+        "severity": "Low",
+        "open": 2,
+        "type": "DNS record",
+        "team": "Infrastructure",
+        "sla": "3d",
+        "slaLabel": "to SLA",
+        "risk": false
+      }
+    ]
+  },
+  "remediationBoard": {
+    "beyondSla": 3,
+    "activeTasks": 25,
+    "nextReview": "Next review 30 min",
+    "topExposures": [
+      {
+        "id": "EXP-1049",
+        "title": "Enforce MFA on admin console",
+        "asset": "admin.northwind.dev",
+        "assetType": "Web server",
+        "severity": "Critical",
+        "team": "Platform",
+        "avatar": "PL",
+        "stage": "Triage",
+        "stageTone": "triage",
+        "due": "Due 2h",
+        "risk": true,
+        "age": "3d in stage"
+      },
+      {
+        "id": "EXP-1042",
+        "title": "Confirm MFA on payments portal",
+        "asset": "payments.northwind.dev",
+        "assetType": "Web server",
+        "severity": "Critical",
+        "team": "Payments",
+        "avatar": "PA",
+        "stage": "Verify",
+        "stageTone": "verify",
+        "due": "Due today",
+        "risk": true,
+        "age": "6h in stage"
+      },
+      {
+        "id": "EXP-1038",
+        "title": "Restrict public bucket ACL",
+        "asset": "northwind-media-prod",
+        "assetType": "Storage bucket",
+        "severity": "High",
+        "team": "Media",
+        "avatar": "ME",
+        "stage": "Triage",
+        "stageTone": "triage",
+        "due": "Due 6h",
+        "risk": true,
+        "age": "2d in stage"
+      },
+      {
+        "id": "EXP-1021",
+        "title": "Patch OpenSSH on VPN gateway",
+        "asset": "vpn-gw.northwind.dev",
+        "assetType": "IP address",
+        "severity": "High",
+        "team": "IT operations",
+        "avatar": "IT",
+        "stage": "In progress",
+        "stageTone": "progress",
+        "due": "Due 1d",
+        "risk": false,
+        "age": "1d in stage"
+      },
+      {
+        "id": "EXP-0994",
+        "title": "Rotate wildcard certificate",
+        "asset": "*.northwind.dev",
+        "assetType": "Certificate",
+        "severity": "Medium",
+        "team": "Infrastructure",
+        "avatar": "IN",
+        "stage": "In progress",
+        "stageTone": "progress",
+        "due": "Due 4d",
+        "risk": false,
+        "age": "5d in stage"
+      }
+    ],
+    "columns": [
+      {
+        "stage": "Triage",
+        "tone": "triage",
+        "count": 12,
+        "tasks": [
+          {
+            "severity": "Critical",
+            "due": "Due 2h",
+            "risk": true,
+            "title": "Enforce MFA on admin console",
+            "asset": "admin.northwind.dev",
+            "avatar": "PL",
+            "team": "Platform",
+            "age": "3d in stage"
+          },
+          {
+            "severity": "High",
+            "due": "Due 6h",
+            "risk": true,
+            "title": "Restrict public bucket ACL",
+            "asset": "northwind-media-prod",
+            "avatar": "ME",
+            "team": "Media",
+            "age": "2d in stage"
+          }
+        ]
+      },
+      {
+        "stage": "In progress",
+        "tone": "progress",
+        "count": 8,
+        "tasks": [
+          {
+            "severity": "High",
+            "due": "Due 1d",
+            "risk": false,
+            "title": "Patch OpenSSH on VPN gateway",
+            "asset": "vpn-gw.northwind.dev",
+            "avatar": "IT",
+            "team": "IT operations",
+            "age": "1d in stage"
+          },
+          {
+            "severity": "Medium",
+            "due": "Due 4d",
+            "risk": false,
+            "title": "Rotate wildcard certificate",
+            "asset": "*.northwind.dev",
+            "avatar": "IN",
+            "team": "Infrastructure",
+            "age": "5d in stage"
+          }
+        ]
+      },
+      {
+        "stage": "Verify",
+        "tone": "verify",
+        "count": 5,
+        "tasks": [
+          {
+            "severity": "Critical",
+            "due": "Due today",
+            "risk": true,
+            "title": "Confirm MFA on payments portal",
+            "asset": "payments.northwind.dev",
+            "avatar": "PA",
+            "team": "Payments",
+            "age": "6h in stage"
+          },
+          {
+            "severity": "Low",
+            "due": "Due 2d",
+            "risk": false,
+            "title": "Verify DNS zone transfer rule",
+            "asset": "dns1.northwind.dev",
+            "avatar": "IN",
+            "team": "Infrastructure",
+            "age": "1d in stage"
+          }
+        ]
+      }
+    ]
+  },
+  "surfaceChanges": {
+    "thisWeek": 12,
+    "events": [
+      {
+        "kind": "discovery",
+        "title": "New subdomain discovered",
+        "asset": "staging-db.northwind.dev",
+        "time": "1h"
+      },
+      {
+        "kind": "resolved",
+        "title": "TLS certificate rotated",
+        "asset": "api.northwind.dev",
+        "time": "3h"
+      },
+      {
+        "kind": "changed",
+        "title": "Asset moved to maintenance",
+        "asset": "payments.northwind.dev",
+        "time": "5h"
+      },
+      {
+        "kind": "scan",
+        "title": "Weekly scan completed",
+        "asset": "1,284 assets · 6 new findings",
+        "time": "8h"
+      },
+      {
+        "kind": "resolved",
+        "title": "Bucket ACL restricted",
+        "asset": "northwind-media-prod",
+        "time": "1d"
+      }
+    ]
+  }
+}
