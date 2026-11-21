@@ -82,6 +82,13 @@ const RuleTable = ({
     navigate(`/casm/rules/guided-editor`);
   };
 
+  const handleRowClick = (rule) => {
+    const id = rule?._id || rule?.original?._id;
+    if (id) {
+      navigate(`/casm/signals?ruleId=${id}`);
+    }
+  };
+
   const columns = useMemo(
     () => [
       // {
@@ -106,8 +113,13 @@ const RuleTable = ({
           <DataGridColumnHeader title="Rule Name" column={column} />
         ),
         cell: ({ row }) => (
-          <div className="flex flex-col gap-0.5 max-w-[400px]">
-            <span className="font-medium text-sm line-clamp-1">{row.original.name}</span>
+          <div
+            className="flex flex-col gap-0.5 max-w-[400px] cursor-pointer group"
+            onClick={() => handleRowClick(row.original)}
+          >
+            <span className="font-medium text-sm line-clamp-1 group-hover:text-primary transition-colors">
+              {row.original.name}
+            </span>
             <span className="text-[11px] text-muted-foreground line-clamp-1">
               {row.original.description}
             </span>
@@ -198,7 +210,7 @@ const RuleTable = ({
           <DataGridColumnHeader title="" column={column} />
         ),
         cell: ({ row }) => (
-          <div className="flex items-center justify-end mr-4">
+          <div className="flex items-center justify-end mr-4" onClick={(e) => e.stopPropagation()}>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent/50 transition-opacity">
@@ -265,6 +277,7 @@ const RuleTable = ({
       totalCount={data?.totalResults}
       cardHeading={false}
       showPagination={true}
+      onRowClick={handleRowClick}
     />
   );
 };

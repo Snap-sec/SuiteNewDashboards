@@ -1,0 +1,3 @@
+**Folder Exclusion Rule (Strict):**
+
+Do not read, access, inspect, analyze, reference, or use any files, designs, screenshots, assets, or documentation located inside the specified folder. Treat this folder and all its subdirectories as strictly excluded from your working context. Do not use its contents as design references, implementation guidance, or source material. Work exclusively with the remaining accessible project files.

@@ -8,7 +8,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { RuleCard, RuleCardSkeleton } from './rule-card';
 
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   useGetAsmRulesQuery,
   useExecuteAsmRuleMutation,
@@ -29,6 +29,9 @@ const PAGE_SIZE = 10;
 
 export function SignalsSidebar({ onActiveRuleChange, onRulesStateChange, singleRule }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const ruleIdParam = searchParams.get('ruleId');
+
   const currentTab = useStore2((state) => state.currentTab);
   const setCurrentTab = useStore2((state) => state.setCurrentTab);
   const ruleSearch = useStore2((state) => state.ruleSearch);
@@ -74,16 +77,20 @@ export function SignalsSidebar({ onActiveRuleChange, onRulesStateChange, singleR
   useEffect(() => {
     if (singleRule) {
       const ruleObj = singleRule.data || singleRule;
+      if (!ruleObj?._id) return;
       setAllRules((prev) => {
         const exists = prev.some((r) => r._id === ruleObj._id);
         if (!exists) {
           return [ruleObj, ...prev];
         }
-        return prev;
+        return prev.map((r) => (r._id === ruleObj._id ? ruleObj : r));
       });
-      setCurrentTab(ruleObj.enabled === false ? 'custom' : 'built-in');
+      const targetTab = ruleObj.enabled === false ? 'custom' : 'built-in';
+      setCurrentTab(targetTab);
+      setActiveRuleId(ruleObj._id);
+      onActiveRuleChange?.(ruleObj);
     }
-  }, [singleRule, setCurrentTab]);
+  }, [singleRule, setCurrentTab, setActiveRuleId, onActiveRuleChange]);
 
   const hasMore = rulesData?.results?.length === PAGE_SIZE && (rulesData?.totalResults == null || (page * PAGE_SIZE) < rulesData.totalResults);
 
@@ -99,6 +106,21 @@ export function SignalsSidebar({ onActiveRuleChange, onRulesStateChange, singleR
 
   useEffect(() => {
     if (displayRules.length > 0) {
+      if (ruleIdParam) {
+        const requestedRule = displayRules.find((r) => r._id === ruleIdParam);
+        if (requestedRule) {
+          if (activeRuleId !== requestedRule._id) {
+            setActiveRuleId(requestedRule._id);
+            onActiveRuleChange?.(requestedRule);
+          }
+          return;
+        }
+        // If singleRule is still pending, don't overwrite with displayRules[0]
+        if (!singleRule || (singleRule.data || singleRule)?._id !== ruleIdParam) {
+          return;
+        }
+      }
+
       const current = displayRules.find(r => r._id === activeRuleId);
       if (!current) {
         const first = displayRules[0];
@@ -108,9 +130,11 @@ export function SignalsSidebar({ onActiveRuleChange, onRulesStateChange, singleR
         onActiveRuleChange?.(current);
       }
     } else {
-      onActiveRuleChange?.(null);
+      if (!ruleIdParam) {
+        onActiveRuleChange?.(null);
+      }
     }
-  }, [displayRules, activeRuleId, setActiveRuleId, onActiveRuleChange]);
+  }, [displayRules, activeRuleId, setActiveRuleId, onActiveRuleChange, ruleIdParam, singleRule]);
 
   useEffect(() => {
     if (onRulesStateChange) {

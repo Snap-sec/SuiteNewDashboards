@@ -152,7 +152,7 @@ export function RuleCard({ rule, isActive, onClick, onToggle, onExecute, onDelet
         <div className="flex items-start gap-6 mt-4">
           <div className="flex flex-col gap-1.5 w-[65px]">
             <span className="text-[11px] text-muted-foreground leading-none font-medium uppercase tracking-wider">
-              Violations
+              Assets
             </span>
             <div className="flex flex-col justify-center h-6">
               <span className="text-xl font-semibold text-foreground leading-none">

@@ -133,6 +133,7 @@ const ExposureTableV2 = ({
   setAssetSearch,
   ruleConditions,
   activeRule,
+  rightToolbar,
 }) => {
 
   const ruleFields = useMemo(() => {
@@ -320,6 +321,7 @@ const ExposureTableV2 = ({
       totalCount={data?.total}
       rowSelection={rowSelection}
       setRowSelection={setRowSelection}
+      rightToolbar={rightToolbar}
       // toolbar={<TableToolbar supportedFilters={data?.filters} />}
       enableSorting={true}
       cardHeading={true}

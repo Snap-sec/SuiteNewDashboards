@@ -98,6 +98,7 @@ function Signals() {
   const heading = TAB_HEADINGS[currentTab] || TAB_HEADINGS['built-in'];
 
   if (
+    !ruleIdParam &&
     !rulesLoading &&
     !rulesFetching &&
     (!rulesOverview?.totalResults || rulesOverview?.results?.length === 0) &&

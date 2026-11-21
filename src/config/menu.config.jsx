@@ -1,5 +1,5 @@
 import { icon } from 'leaflet';
-import { AlertCircle, Award, Badge, BadgeAlert, Ban, Bell, BetweenHorizontalStart, Bitcoin, Bolt, Book, Bot, BotIcon, Box, Boxes, BrainCog, Briefcase, Bug, BugPlay, Building, Building2, CalendarCheck, CalendarClock, CalendarRange, Captions, ChartCandlestick, ChartPie, CheckCircle, ClipboardCheck, Clock, CloudAlert, Code, Code2Icon, CodeIcon, Codepen, CodeSquare, Coffee, Crosshair, File as DocumentIcon, Euro, Eye, File, FileBarChart, FileQuestion, FileText, Flag, FolderOutput, Ghost, Gift, GitPullRequestDraft, Grid, Group, HatGlasses, Heart, HelpCircle, History, Kanban, Key, Layers, Layout, LayoutDashboard, LayoutGrid, LifeBuoy, Link, Link2, List, ListCheck, ListOrdered, LockIcon, Logs, MessageSquare, Monitor, MonitorCloud, Network, NotebookText, Users as PeopleIcon, PlayCircle, Plug, PlugZap, Radar, Rocket, ScanEye, ScanQrCode, ScanSearch, ScrollText, Search, Server, Settings, Shapes, Share2, Shield, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldHalf, ShieldMinus, ShieldOff, ShieldUser, ShoppingCart, SlidersHorizontal, Sparkles, SquareChartGantt, SquareMousePointer, SquarePen, Star, Tags, Target, Theater, ThumbsUp, TrendingUp, TriangleAlert, Unplug, UserCheck, UserCircle, Users, Workflow, Briefcase as WorkIcon, Zap } from 'lucide-react';
+import { AlertCircle, Award, Badge, BadgeAlert, Ban, Bell, BetweenHorizontalStart, Bitcoin, Bolt, Book, Bot, BotIcon, Box, Boxes, BrainCog, Briefcase, Bug, BugPlay, Building, Building2, CalendarCheck, CalendarClock, CalendarRange, Captions, ChartCandlestick, ChartPie, CheckCircle, ClipboardCheck, Clock, CloudAlert, Code, Code2Icon, CodeIcon, Codepen, CodeSquare, Coffee, Crosshair, File as DocumentIcon, Euro, Eye, File, FileBarChart, FileQuestion, FileText, Flag, FolderOutput, Ghost, Gift, GitPullRequestDraft, Globe, Grid, Group, HatGlasses, Heart, HelpCircle, History, Kanban, Key, Layers, Layout, LayoutDashboard, LayoutGrid, LifeBuoy, Link, Link2, List, ListCheck, ListOrdered, LockIcon, Logs, MessageSquare, Monitor, MonitorCloud, Network, NotebookText, Users as PeopleIcon, PlayCircle, Plug, PlugZap, Radar, Rocket, ScanEye, ScanQrCode, ScanSearch, ScrollText, Search, Server, Settings, Shapes, Share2, Shield, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldHalf, ShieldMinus, ShieldOff, ShieldUser, ShoppingCart, SlidersHorizontal, Sparkles, SquareChartGantt, SquareMousePointer, SquarePen, Star, Tags, Target, Theater, ThumbsUp, TrendingUp, TriangleAlert, Unplug, UserCheck, UserCircle, Users, Workflow, Briefcase as WorkIcon, Zap } from 'lucide-react';
 import { BlockersCountBadge } from './sidebar-custom-comps-index';
 
 
@@ -236,28 +236,19 @@ export const ASM_SIDEBAR = [
 
   { heading: 'ATTACK SURFACE MANAGEMENT' },
   {
-    title: 'Attack Surface',
-    icon: ChartCandlestick,
-    children: [
-      { title: 'All Assets', path: '/casm/assets' },
-      { title: 'Subdomains', path: '/casm/assets/subdomains' },
-      { title: 'Web Servers', path: '/casm/assets/web-servers' },
-      { title: 'IP Addresses', path: '/casm/assets/ip-addresses' },
-      { title: 'Certificates', path: '/casm/assets/certificates' },
-      { title: 'DNS Records', path: '/casm/assets/dns-records' },
-      { title: 'Ports', path: '/casm/assets/ports' },
-      { title: 'APIs', path: '/casm/assets/apis' },
-      { title: 'Technologies', path: '/casm/assets/technologies' },
-    ],
+    title: 'Assets Discovered',
+    icon: Globe,
+    path: '/casm/assets',
   },
-
   {
-    title: 'Risk Signals',
-    icon: Bug,
-    children: [
-      { title: 'Signals', path: '/casm/signals' },
-      { title: 'Exposures', path: '/casm/exposures' },
-    ],
+    title: 'Exposures',
+    icon: ShieldAlert,
+    path: '/casm/exposures',
+  },
+  {
+    title: 'Custom Rule',
+    icon: SlidersHorizontal,
+    path: '/casm/rules',
   },
 
   // { heading: 'EXPOSURE MANAGEMENT' },

@@ -195,7 +195,18 @@ export function ASMRoutingSetup() {
           <Suspense
             fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
           >
-            <AllAssets />
+            <AllAssetsPage />
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/asset"
+        element={
+          <Suspense
+            fallback={<ContentLoader className="h-[calc(100vh-64px)]" />}
+          >
+            <AllAssetsPage />
           </Suspense>
         }
       />
